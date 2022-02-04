@@ -37,7 +37,6 @@
       <input
         type="radio"
         name="gender"
-        checked
         id="male"
         value="male"
         @change="updateFilter"
@@ -56,6 +55,7 @@
         name="gender"
         id="any"
         value="any"
+        checked
         @change="updateFilter"
       />
       <label for="any">Any</label>
@@ -104,11 +104,7 @@ export default {
   methods: {
     updateFilter(e) {
       if (e.target.name === 'gender') {
-        if (e.target.value === 'any') {
-          delete this.filterComposition['gender']
-        } else {
-          this.filterComposition['gender'] = e.target.value
-        }
+        this.filterComposition['gender'] = e.target.value
       }
       else if (e.target.checked) {
         this.filterComposition[e.target.value] = e.target.value
@@ -116,6 +112,7 @@ export default {
       else if (e.target.type === 'range') {
         this.filterComposition['rate'] = e.target.value
       }
+      // Удаляем скил из фильтра
       else {
         delete this.filterComposition[e.target.value]
       }

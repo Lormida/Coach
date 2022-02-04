@@ -33,7 +33,7 @@ export default {
       return false
     },
     filterByGender(coach) {
-      return coach.gender == this.getFilter.gender
+      return this.getFilter.gender === 'any' || coach.gender == this.getFilter.gender
     },
     filterByHourRate(coach) {
       return coach.hourlyRate >= 0 && coach.hourlyRate <= this.getFilter.rate
@@ -49,10 +49,6 @@ export default {
     getCoachesFilter() {
       if (!this.isEmpty(this.getFilter)) {
         return this.arrayFilter.reduce((acc, curFilter) => {
-          // Пропускаем фильтер для пола
-          if (this.getFilter['gender'] == undefined && curFilter == this.filterByGender) {
-            return acc
-          }
           return acc.filter(curFilter)
         }, this.getCoaches)
       }
