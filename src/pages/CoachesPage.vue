@@ -1,6 +1,6 @@
 <template>
-  <the-coaches-filter></the-coaches-filter>
-  <the-coaches-list :coaches="coaches"></the-coaches-list>
+  <the-coaches-filter @filter-updaded="updateFilter"></the-coaches-filter>
+  <the-coaches-list :coaches="coaches" :filter="getFilter"></the-coaches-list>
 </template>
 
 <script>
@@ -15,11 +15,21 @@ export default {
   data() {
     return {
       coaches: [],
+      filter: {  }
     }
   },
   computed: {
     getCoaches() {
       return this.$store.getters['coaches/getCoaches']
+    },
+    getFilter(){
+      return this.filter
+    }
+  },
+  methods: {
+    updateFilter(filter) {
+      // console.log(filter)
+      this.filter = filter
     }
   },
   created() {
