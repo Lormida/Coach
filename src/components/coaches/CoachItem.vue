@@ -21,11 +21,13 @@
         className="button--contact"
         >Contact</base-button
       >
-      <base-button
-        class="buttons-container__view-details"
-        className="button--details"
-        >View Details</base-button
-      >
+
+      <router-link :to="linkToCoachDetails">
+        <base-button
+          class="buttons-container__view-details"
+          className="button--details"
+        >Details</base-button>
+      </router-link>
     </section>
   </div>
 </template>
@@ -34,6 +36,9 @@
 export default {
   props: ['coach'],
   computed: {
+    linkToCoachDetails() {
+      return `${this.$route.path}/${this.coach.id}`
+    },
     genderClass() {
       return this.coach.gender
     }

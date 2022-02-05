@@ -1,5 +1,5 @@
 <template>
-  <base-wrapper v-if="this.getCoachesFilter && this.getCoachesFilter.length">
+  <base-wrapper v-if="this.getCoachesFilter?.length">
     <coach-item
       v-for="coach in getCoachesFilter"
       :key="coach.id"

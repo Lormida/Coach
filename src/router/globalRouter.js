@@ -1,14 +1,22 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import Coaches from '../pages/CoachesPage'
+import CoachDetails from '../components/coaches/CoachDetails'
 import Requests from '../pages/RequestsPage'
 import Authorization from '../pages/AuthPage'
+
 
 const routes = [
   {
     path: '/coaches',
     name: 'Coaches',
-    component: Coaches
+    component: Coaches,
+  },
+  {
+    path: '/coaches/:id',
+    name: 'CoachDetails',
+    component: CoachDetails,
+    props: true
   },
   {
     path: '/requests',

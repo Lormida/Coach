@@ -1,12 +1,14 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+
+import '../public/reset.css'
+
 import router from './router/globalRouter'
 import store from './store/globalStore'
 
 import BaseWrapper from './components/UI/BaseWrapper'
 import BaseButton from './components/UI/BaseButton'
 import BaseBadge from './components/UI/BaseBadge'
-
 import TheHeader from './layout/TheHeader'
 
 const app = createApp(App)

@@ -15,7 +15,8 @@ export default {
           description:
             "I'm Maximilian and I've worked as a freelance web developer for years. Let me help you become a developer as well!",
           hourlyRate: 30,
-          gender: 'male'
+          gender: 'male',
+          email: 'max@gmail.com'
         },
         {
           id: 'c2',
@@ -25,7 +26,8 @@ export default {
           description:
             'I am Julie and as a senior developer in a big tech company, I can help you get your first job or progress in your current role.',
           hourlyRate: 30,
-          gender: 'female'
+          gender: 'female',
+          email: 'julie@gmail.com'
         },
         {
           id: 'c3',
@@ -35,7 +37,8 @@ export default {
           description:
             'I am Andrew and am not developer in a any tech company (thus far) ...',
           hourlyRate: 0,
-          gender: 'male'
+          gender: 'male',
+          email: 'andrew@gmail.com'
         }
       ]
     }
