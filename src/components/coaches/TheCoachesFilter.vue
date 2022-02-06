@@ -138,6 +138,7 @@ export default {
   }
   // .filter__label
   &__label {
+    // padding: 5px 10px;
     margin: 20px 0;
     margin-bottom: 0px;
   }
@@ -145,12 +146,12 @@ export default {
 .coach-skills {
   display: flex;
   align-items: center;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   font-size: 2rem;
   align-self: flex-start;
-  padding-bottom: 1.5rem;
+  padding-bottom: 1rem;
   label {
-    margin-right: 1.5rem;
+    margin-right: 1rem;
   }
 }
 .coach-gender {
@@ -179,7 +180,6 @@ export default {
 .label-info {
   align-self: flex-start;
   font-size: 2rem;
-  font-style: italic;
   padding: 1px 3px;
   border: 1px solid #000;
 }

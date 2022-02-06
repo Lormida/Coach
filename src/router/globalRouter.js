@@ -8,6 +8,7 @@ import Authorization from '../pages/AuthPage'
 
 const routes = [
   {
+    alias: '/',
     path: '/coaches',
     name: 'Coaches',
     component: Coaches,

@@ -6,7 +6,7 @@
       :coach="coach"
     ></coach-item>
   </base-wrapper>
-  <h1 v-else>NONE!!</h1>
+  <h1 v-else>There are not any coaches by current filters</h1>
 </template>
 
 <script>

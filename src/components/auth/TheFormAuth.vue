@@ -49,7 +49,6 @@ export default {
   },
   methods: {
     loginToSystem() {
-      console.log(this.loginValue)
       this.$store.dispatch('loginToSystem', this.loginValue)
       this.loginValue = ''
     },
@@ -91,12 +90,18 @@ export default {
 
   // .form-input__login
   &__login {
-    font-size: 1.7rem;
+    width: 100%;
+    font-size: 2.5rem;
   }
 
   // .form-input__btn-login
   &__btn-login {
-    margin: 20px 0 10px 0 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 15px;
+    font-size: 2.6rem;
+    margin: 20px auto 10px auto;
   }
 }
 .errorValidate {

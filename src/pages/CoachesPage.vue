@@ -1,34 +1,36 @@
 <template>
-  <the-coaches-filter @filter-updaded="updateFilter"></the-coaches-filter>
-  <the-coaches-list :coaches="coaches" :filter="getFilter"></the-coaches-list>
+  <div>
+    <the-coaches-filter @filter-updaded="updateFilter"></the-coaches-filter>
+    <the-coaches-list :coaches="coaches" :filter="getFilter"></the-coaches-list>
+  </div>
 </template>
 
 <script>
 import TheCoachesFilter from '../components/coaches/TheCoachesFilter.vue'
 import TheCoachesList from '../components/coaches/TheCoachesList.vue'
 
+
 export default {
   components: {
     TheCoachesFilter,
-    TheCoachesList
+    TheCoachesList,
   },
   data() {
     return {
       coaches: [],
-      filter: {  }
+      filter: {},
     }
   },
   computed: {
     getCoaches() {
       return this.$store.getters['coaches/getCoaches']
     },
-    getFilter(){
+    getFilter() {
       return this.filter
     }
   },
   methods: {
     updateFilter(filter) {
-      // console.log(filter)
       this.filter = filter
     }
   },

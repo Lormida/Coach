@@ -1,53 +1,83 @@
 <template>
-  <section class="content" v-if="Object.keys(coach)">
-    <base-wrapper class="header-initials">
-      <div class="coach-item">
-        <span class="coach-item__title"
-          >{{ coach.firstName }} {{ coach.lastName }}</span
+  <div>
+    <transition name="dialog-success">
+      <the-dialog-window-success
+        @close-dialog="toggleDialog"
+        v-if="open"
+      ></the-dialog-window-success>
+    </transition>
+
+    <transition name="modal-contact">
+      <the-modal-contact
+        :coachEmail="$store.getters['coaches/getCertainCoach'](id)[0].email"
+        @close-modal="toggleModalContact"
+        @open-dialog="toggleDialog"
+        v-if="modalContactIsOpen"
+      ></the-modal-contact>
+    </transition>
+
+    <section class="content" v-if="Object.keys(coach)">
+      <base-wrapper class="header-initials">
+        <div class="coach-item">
+          <span class="coach-item__title"
+            >{{ coach.firstName }} {{ coach.lastName }}</span
+          >
+          <span class="coach-item__rate">${{ coach.hourlyRate }}/hour</span>
+        </div>
+      </base-wrapper>
+
+      <base-wrapper class="main-contact">
+        <span class="coach-item__title">Interested? Reach out now!</span>
+        <base-button
+          @click="toggleModalContact(true)"
+          class="main-contact__button"
+          className="button--contact"
+          >Contact</base-button
         >
-        <span class="coach-item__rate">${{ coach.hourlyRate }}/hour</span>
-      </div>
-    </base-wrapper>
+      </base-wrapper>
 
-    <base-wrapper class="main-contact">
-      <span class="coach-item__title">Interested? Reach out now!</span>
-      <base-button
-        id="super"
-        class="main-contact__button"
-        className="button--contact"
-        >Contact</base-button
-      >
-    </base-wrapper>
-
-    <base-wrapper class="footer-skills">
-      <section class="skills">
-        <base-badge
-          class="skills__skill"
-          v-for="skill in coach.areas"
-          :key="skill"
-          :className="skill"
-        ></base-badge>
-      </section>
-      <p class="description">
-        {{ coach.description }}
-      </p>
-    </base-wrapper>
-  </section>
+      <base-wrapper class="footer-skills">
+        <section class="skills">
+          <base-badge
+            class="skills__skill"
+            v-for="skill in coach.areas"
+            :key="skill"
+            :className="skill"
+          ></base-badge>
+        </section>
+        <p class="description">
+          {{ coach.description }}
+        </p>
+      </base-wrapper>
+    </section>
+  </div>
 </template>
 
 <script>
-import BaseWrapper from '../UI/BaseWrapper.vue'
+import TheModalContact from './TheModalContact.vue'
+import TheDialogWindowSuccess from '../requests/TheDialogWindowSuccess.vue'
+
 export default {
-  components: { BaseWrapper },
+  components: { TheModalContact, TheDialogWindowSuccess },
   props: ['id'],
   data() {
     return {
-      coach: {}
+      modalContactIsOpen: false,
+      coach: {},
+      open: false
+    }
+  },
+  methods: {
+    toggleModalContact(status) {
+      this.modalContactIsOpen = status
+    },
+    toggleDialog(status) {
+      this.open = status
     }
   },
   created() {
     this.coach = this.$store.getters['coaches/getCertainCoach'](this.id)[0]
-  }
+  },
 }
 </script>
 
@@ -70,6 +100,7 @@ export default {
   height: 80px;
   width: 100%;
   padding: 10px 0;
+
   // .coach-item__item__title
   &__title {
     align-self: flex-start;
@@ -109,9 +140,50 @@ export default {
   flex-direction: column;
 }
 .description {
-  margin:15px 0;
+  margin: 15px 0;
   font-size: 1.6rem;
   text-align: left;
   align-self: flex-start;
+}
+////
+.modal-contact-enter-from,
+.modal-contact-leave-to {
+  opacity: 0;
+  transform: translateX(-50px);
+}
+
+.modal-contact-enter-to,
+.modal-contact-leave-from {
+  opacity: 1;
+  transform: translateX(0px);
+}
+
+.modal-contact-enter-active {
+  transition: all 0.5s ease 0s;
+}
+
+.modal-contact-leave-active {
+  transition: all 0.1s ease 0s;
+}
+/////
+
+.dialog-success-enter-from,
+.dialog-success-leave-to {
+  transform: translateX(-50%) scale(0.1);
+  opacity: 1;
+}
+
+.dialog-success-enter-to,
+.dialog-success-leave-from {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+}
+
+.dialog-success-enter-active {
+  transition: all 0.2s ease-in-out 0s;
+}
+
+.dialog-success-leave-active {
+  transition: all 0.1s ease-in-out 0s;
 }
 </style>

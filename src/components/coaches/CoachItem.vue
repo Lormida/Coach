@@ -16,12 +16,6 @@
       ></base-badge>
     </section>
     <section class="buttons-container">
-      <base-button
-        class="buttons-container__contact"
-        className="button--contact"
-        >Contact</base-button
-      >
-
       <router-link :to="linkToCoachDetails">
         <base-button
           class="buttons-container__view-details"
