@@ -10,13 +10,17 @@ const store = createStore({
   },
   state() {
     return {
-      myLogin: ''
+      myLogin: '',
+      isLoading: false,
     }
 
   },
   getters: {
     getMyLogin(state) {
       return state.myLogin
+    },
+    getIsLoadingState(state) {
+      return state.isLoading
     }
   },
   mutations: {
@@ -25,6 +29,9 @@ const store = createStore({
     },
     clearLogin(state) {
       state.myLogin = ''
+    },
+    toggleIsLoadingState(state, status) {
+      state.isLoading = status
     }
   },
   actions: {

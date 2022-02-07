@@ -91,6 +91,7 @@ export default {
   // .form-input__login
   &__login {
     width: 100%;
+    outline: none;
     font-size: 2.5rem;
   }
 

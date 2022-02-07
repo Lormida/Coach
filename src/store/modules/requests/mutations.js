@@ -4,5 +4,8 @@ export default {
   },
   removeRequestLocal(state, id) {
     state.requests = state.requests.filter(request => request.id != id)
+  },
+  loadRequestsLocal(state, arrayRequests) {
+    state.requests = arrayRequests
   }
 }

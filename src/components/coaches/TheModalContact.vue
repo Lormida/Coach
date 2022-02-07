@@ -62,8 +62,10 @@ export default {
   },
   computed: {
     getValidation() {
-      return this.contactEmail.length > 3 && this.contactEmail.includes('@') && this.contactEmail.includes('.')
-        && this.contactMessage.length > 10
+      return this.contactEmail.toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        ) && this.contactMessage.length > 10
     }
   },
   methods: {
@@ -75,18 +77,14 @@ export default {
         contactEmail: this.contactEmail,
         contactMessage: this.contactMessage,
         coachEmail: this.coachEmail,
-        id: Date.now().toString()
+        id: String(Date.now())
       }
       this.$store.dispatch('requests/createRequest', data)
+        .then(() => setTimeout(() => this.$emit('open-dialog', true), 200))
 
       this.contactEmail = ''
       this.contactMessage = ''
       this.closeModalContact()
-
-      setTimeout(() => {
-        this.$emit('open-dialog', true)
-      }, 1000)
-
     }
   }
 
@@ -100,8 +98,8 @@ export default {
   background-color: rgba(22, 22, 22, 0.8);
   width: 100%;
   height: 100%;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
 }
 .modal {
   overflow: hidden;

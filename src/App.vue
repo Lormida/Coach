@@ -1,12 +1,22 @@
 <template>
   <the-header></the-header>
-
+  <spinner v-if="getIsLoadingState"></spinner>
   <router-view v-slot="{ Component }">
     <transition name="page" mode="out-in">
       <component :is="Component" />
     </transition>
   </router-view>
 </template>
+
+<script>
+export default {
+  computed: {
+    getIsLoadingState() {
+      return this.$store.getters['getIsLoadingState']
+    },
+  }
+}
+</script>
 
 <style lang="scss">
 .active {

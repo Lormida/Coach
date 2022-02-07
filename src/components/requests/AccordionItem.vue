@@ -1,11 +1,16 @@
 <template>
-  <li>
-    <div @click="toggleArrow" class="accordion">
-      <span class="accordion__coach-email"
+  <div>
+    <div @click.self="toggleArrow" class="accordion">
+      <span @click.self="toggleArrow" class="accordion__coach-email"
         >[Coach email] : {{ request.coachEmail }}</span
       >
       <div class="button-angle-wrapper">
-        <span :class="getCurrentArrowClass" class="accordion__arrow"> </span>
+        <span
+          @click.self="toggleArrow"
+          :class="getCurrentArrowClass"
+          class="accordion__arrow"
+        >
+        </span>
         <span class="accordion__arrow-close" @click="removeRequest"> </span>
       </div>
     </div>
@@ -13,12 +18,18 @@
     <transition name="accordion-item">
       <div class="accordion__content" v-if="!this.arrowIndex">
         <div class="accordion__content-text">
-          <p style="font-weight: 800; margin-bottom: 20px">[Message]:</p>
+          <p style="font-weight: 800; margin-bottom: 20px">
+            [Message from
+            <span class="accordion__contact-email">{{
+              request.contactEmail
+            }}</span
+            >]:
+          </p>
           {{ request.contactMessage }}
         </div>
       </div>
     </transition>
-  </li>
+  </div>
 </template>
 
 <script>
@@ -96,6 +107,9 @@ $clouds: #ecf0f1;
     line-height: 1.3;
   }
 }
+.accordion__contact-email {
+  color: green;
+}
 .accordion__arrow-close {
   width: 30px;
   height: 30px;
@@ -138,10 +152,10 @@ $clouds: #ecf0f1;
 }
 
 .accordion-item-enter-active {
-  transition: all 0.5s ease-in-out 0s;
+  transition: all 0.25s ease-in-out 0s;
 }
 
 .accordion-item-leave-active {
-  transition: all 0.5s ease-in-out 0s;
+  transition: all 0.25s ease-in-out 0s;
 }
 </style>
