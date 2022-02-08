@@ -12,6 +12,8 @@ const store = createStore({
     return {
       myLogin: '',
       isLoading: false,
+      colorsArray: ['#001219', '#005f73', '#0a9396', '#94d2bd', '#e9d8a6', '#ee9b00', '#ca6702', '#ae2012', '#9b2226'],
+      skillsArray: ['backend', 'frontend', 'hr', 'pr', 'team lead', 'tech lead', 'junior', 'middle', 'senior']
     }
 
   },
@@ -21,6 +23,9 @@ const store = createStore({
     },
     getIsLoadingState(state) {
       return state.isLoading
+    },
+    getSkills(state) {
+      return state.skillsArray
     }
   },
   mutations: {

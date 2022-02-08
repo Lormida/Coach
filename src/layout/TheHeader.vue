@@ -20,6 +20,10 @@
       <span @click="exit" v-else class="menu-wrapper__item exit-item">{{
         getMyLogin
       }}</span>
+
+      <router-link class="menu-wrapper__item" :to="{ name: 'Sign-Up' }"
+        >Sign-Up</router-link
+      >
     </nav>
   </header>
 </template>

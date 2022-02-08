@@ -76,6 +76,8 @@ $clouds: #ecf0f1;
   }
   // .accordion__coach-email
   &__coach-email {
+    display: flex;
+    align-items: center;
     font-size: 2rem;
     margin-left: 20px;
     color: #fff;

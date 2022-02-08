@@ -4,6 +4,7 @@ import Coaches from '../pages/CoachesPage'
 import CoachDetails from '../components/coaches/CoachDetails'
 import Requests from '../pages/RequestsPage'
 import Authorization from '../pages/AuthPage'
+import SignUp from '../pages/SignUpPage'
 
 
 const routes = [
@@ -25,9 +26,14 @@ const routes = [
     component: Requests
   },
   {
-    path: '/auth',
+    path: '/sign-in',
     name: 'Authorization',
     component: Authorization
+  },
+  {
+    path: '/sign-up',
+    name: 'Sign-Up',
+    component: SignUp
   },
 
 ]

@@ -54,13 +54,25 @@ export default {
   }
 }
 .button--login {
-  background-color: #3F7849;
+  background-color: #3f7849;
   color: #fff;
-  border: 1px solid #3F7849;
+  border: 1px solid #3f7849;
   &:hover {
-    color: #3F7849;
+    color: #3f7849;
     background-color: #fff;
-    border: 1px solid #3F7849;
+    border: 1px solid #3f7849;
+    cursor: pointer;
+  }
+}
+
+.button--create {
+  background-color: #8f06df;
+  color: #fff;
+  border: 1px solid #8f06df;
+  &:hover {
+    color: #8f06df;
+    background-color: #fff;
+    border: 1px solid #8f06df;
     cursor: pointer;
   }
 }
