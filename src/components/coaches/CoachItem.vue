@@ -10,7 +10,7 @@
     <section class="skills">
       <base-badge
         class="skills__skill"
-        v-for="skill in coach.areas"
+        v-for="skill in coach.skills"
         :key="skill"
         :className="skill"
       ></base-badge>

@@ -3,33 +3,17 @@
     <span class="filter__title">Find Your Coach</span>
     <span class="label-info filter__label">Choose skills</span>
     <section class="coach-skills">
-      <input
-        type="checkbox"
-        name="frontend"
-        id="frontend"
-        checked
-        @change="updateFilter"
-        value="frontend"
-      />
-      <label for="frontend">Frontend</label>
-      <input
-        type="checkbox"
-        name="backend"
-        id="backend"
-        checked
-        @change="updateFilter"
-        value="backend"
-      />
-      <label for="backend">Backend</label>
-      <input
-        type="checkbox"
-        name="career"
-        id="career"
-        checked
-        @change="updateFilter"
-        value="career"
-      />
-      <label for="career">Career</label>
+      <template v-for="coachFilter in coachesFilter" :key="coachFilter">
+        <input
+          type="checkbox"
+          :name="coachFilter"
+          :id="coachFilter"
+          checked
+          @change="updateFilter"
+          :value="coachFilter"
+        />
+        <label :for="coachFilter">{{ coachFilter }}</label>
+      </template>
     </section>
 
     <span class="label-info filter__label">Choose gender</span>
@@ -81,6 +65,7 @@
 
 <script>
 export default {
+  props: ['coachesFilter'],
   data() {
     return {
       filterComposition: {},
@@ -100,6 +85,11 @@ export default {
       }
     }
     this.$emit('filter-updaded', this.filterComposition)
+  },
+  computed: {
+    getCoachesFilter() {
+      return this.coachesFilter || []
+    }
   },
   methods: {
     updateFilter(e) {

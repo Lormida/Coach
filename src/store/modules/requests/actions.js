@@ -3,6 +3,7 @@ import axios from "axios"
 export default {
   createRequest({ commit }, data) {
     // Adding request to DB
+
     axios.post('http://localhost:3000/createRequest', {
       data
     })

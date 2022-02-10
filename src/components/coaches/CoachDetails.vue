@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!getIsLoadingState || Object.keys(getCoach).length">
     <transition name="dialog-success">
       <the-dialog-window-success
         @close-dialog="toggleDialog"
@@ -40,7 +40,7 @@
         <section class="skills">
           <base-badge
             class="skills__skill"
-            v-for="skill in coach.areas"
+            v-for="skill in coach.skills"
             :key="skill"
             :className="skill"
           ></base-badge>
@@ -75,8 +75,28 @@ export default {
       this.open = status
     }
   },
+  computed: {
+    getCoach() {
+      return this.coach
+    },
+    getIsLoadingState() {
+      return this.$store.getters['getIsLoadingState']
+    },
+  },
   created() {
-    this.coach = this.$store.getters['coaches/getCertainCoach'](this.id)[0]
+    if (Object.keys(this.$store.getters['coaches/getCertainCoach'](this.id)).length == 0) {
+      this.$store.commit('toggleIsLoadingState', true)
+
+      this.$store.dispatch('coaches/loadCoaches')
+        .then(() => {
+          this.coach = this.$store.getters['coaches/getCertainCoach'](this.id)[0]
+          setTimeout(() => {
+            this.$store.commit('toggleIsLoadingState', false)
+          }, 200)
+        })
+    } else {
+      this.coach = this.$store.getters['coaches/getCertainCoach'](this.id)[0]
+    }
   },
 }
 </script>

@@ -2,11 +2,11 @@
   <base-wrapper>
     <form @submit.prevent="createAccount" class="form-signup">
       <base-input
-        class="form-signup__item form-signup__login"
-        id="login"
+        class="form-signup__item form-signup__email"
+        id="email"
         placeholder="pocketbook.love24@gmail.com"
-        label="Login"
-        v-model="login"
+        label="Email"
+        v-model="email"
       >
       </base-input>
 
@@ -18,6 +18,14 @@
         v-model="name"
       >
       </base-input>
+
+      <the-gender-choice
+        class="form-signup__item form-signup__gender"
+        name="gender"
+        :values="['male', 'female']"
+        label="Gender"
+        v-model="gender"
+      ></the-gender-choice>
 
       <base-input
         class="form-signup__item form-signup__rate"
@@ -57,16 +65,19 @@
 
 <script>
 import TheSkillsInput from './TheSkillsInput.vue'
+import TheGenderChoice from './TheGenderChoice.vue'
 
 export default {
   components: {
-    TheSkillsInput
+    TheSkillsInput,
+    TheGenderChoice
   },
   data() {
     return {
-      login: "",
+      email: "",
       name: "",
       rate: "",
+      gender: null,
       skills: null,
       description: "",
       password: "",
@@ -74,11 +85,12 @@ export default {
   },
   methods: {
     createAccount() {
-      let object = {
-        login: this.login, name: this.name, rate: this.rate, skills: this.skills, description: this.description,
+      const dataUser = {
+        email: this.email, firstName: this.name.split(' ')[0], lastName: this.name.split(' ')[1],
+        gender: this.gender, hourlyRate: this.rate, skills: this.skills, description: this.description,
         password: this.password
       }
-      console.log(object)
+      this.$store.dispatch('signUp', dataUser)
     }
   }
 }

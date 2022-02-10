@@ -4,6 +4,9 @@ export default {
   },
   getCertainCoach: (_, getters) => (id) => {
     return getters.getCoaches.filter(coach => coach.id == id)
+  },
+  getCoachesFilter(state) {
+    return [...state.coachesFilter]
   }
 
 }

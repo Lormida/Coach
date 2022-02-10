@@ -8,9 +8,11 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "core-js": "^3.6.5",
     "cors": "^2.8.5",
     "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.3.1",
     "mongoose": "^6.2.0",
     "vue": "^3.0.0",

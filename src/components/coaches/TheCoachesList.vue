@@ -26,9 +26,9 @@ export default {
       return Object.keys(obj).length == 0
     },
     filterBySkills(coach) {
-      // Возвращаем всех коучей у которых свойство areas содержит хотя бы один элемент из filter
+      // Возвращаем всех коучей у которых свойство skills содержит хотя бы один элемент из filter
       for (let skill of Object.values(this.getFilter)) {
-        if (coach.areas.includes(skill)) return true
+        if (coach.skills.includes(skill)) return true
       }
       return false
     },
