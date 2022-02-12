@@ -9,7 +9,7 @@ exports.getCoaches = function (req, res, next) {
     .catch(err => res.status(401).json({ error: err }))
 }
 
-exports.createCoach = function (req, res, next) {
+/* exports.createCoach = function (req, res, next) {
   let email = req.body.data.email
 
   Coach.findOne({ email })
@@ -28,9 +28,9 @@ exports.createCoach = function (req, res, next) {
     })
     .then((data) => res.status(200).json({ status: 'success created', data: req.body.data }))
     .catch(err => res.status(401).json({ error: err }))
-}
+} */
 
-exports.loginCoach = function (req, res, next) {
+/* exports.loginCoach = function (req, res, next) {
   const { email, password } = req.body.data
   Coach.findOne({ email, password })
     .then(coach => {
@@ -43,7 +43,7 @@ exports.loginCoach = function (req, res, next) {
     })
     .then(coach => res.status(201).json({ data: coach, status: 'success' }))
     .catch(err => res.status(401).json({ error: err }))
-}
+} */
 
 exports.deleteCoachById = function (req, res, next) {
   Coach.deleteOne(req.params)

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 v-if="getRequests?.length == 0 && !getIsLoadingState">
-      There is not any requests!
+      There is not any requests! {{getIsLoadingState}}
     </h1>
     <the-requests-list
       v-if="!getIsLoadingState"
@@ -24,10 +24,6 @@ export default {
       return this.$store.getters['getIsLoadingState']
     },
     getRequests() {
-      const myLogin = this.$store.getters['getMyLogin']
-      if (myLogin) {
-        return this.$store.getters['requests/getRequestsByCoach'](myLogin)
-      }
       return this.$store.getters['requests/getRequests']
     }
   },

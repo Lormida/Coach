@@ -7,6 +7,10 @@
       class="form-input__input"
       :type="getType"
       :id="id"
+      :class="{
+        errorValidate: getErrorValidateLogin,
+        successValidate: getSuccessValidateLogin,
+      }"
       :placeholder="placeholder"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
@@ -20,7 +24,7 @@
       :placeholder="placeholder"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
-      style="resize: none; height:160px"
+      style="resize: none; height: 130px"
     />
   </div>
 </template>
@@ -28,8 +32,14 @@
 <script>
 export default {
   emits: ['update:modelValue'],
-  props: ['id', 'label', 'placeholder', 'modelValue', 'type', 'tag'],
+  props: ['id', 'label', 'placeholder', 'modelValue', 'type', 'tag', 'validator'],
   computed: {
+    getErrorValidateLogin() {
+      return this.validator
+    },
+    getSuccessValidateLogin() {
+      return !this.validator && this.modelValue != ''
+    },
     getType() {
       return this.type || 'text'
     },
@@ -42,7 +52,7 @@ export default {
 
 <style lang="scss" scoped>
 .form-input {
-  margin: 10px 10px;
+  margin: 10px 0px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -50,19 +60,25 @@ export default {
   // .form-input__label
 
   &__label {
-    padding-right: 10px;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: bold;
     text-align: left;
-    width: 30%;
+    width: 25%;
   }
 
   // .form-input__input
 
   &__input {
+    outline: none;
     font-size: 1.8rem;
     line-height: 1.5;
-    width: 70%;
+    width: 65%;
   }
+}
+.errorValidate {
+  border: 2px solid rgb(216, 39, 39);
+}
+.successValidate {
+  border: 2px solid rgb(67, 223, 93);
 }
 </style>

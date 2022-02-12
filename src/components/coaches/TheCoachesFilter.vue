@@ -3,7 +3,11 @@
     <span class="filter__title">Find Your Coach</span>
     <span class="label-info filter__label">Choose skills</span>
     <section class="coach-skills">
-      <template v-for="coachFilter in coachesFilter" :key="coachFilter">
+      <div
+        class="filter__item"
+        v-for="coachFilter in coachesFilter"
+        :key="coachFilter"
+      >
         <input
           type="checkbox"
           :name="coachFilter"
@@ -13,7 +17,7 @@
           :value="coachFilter"
         />
         <label :for="coachFilter">{{ coachFilter }}</label>
-      </template>
+      </div>
     </section>
 
     <span class="label-info filter__label">Choose gender</span>
@@ -132,10 +136,15 @@ export default {
     margin: 20px 0;
     margin-bottom: 0px;
   }
+  // filter__item
+  &__item {
+    margin: 6px 0;
+  }
 }
 .coach-skills {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   margin-top: 1rem;
   font-size: 2rem;
   align-self: flex-start;

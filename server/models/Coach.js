@@ -37,13 +37,18 @@ const coachSchema = new Schema({
     type: Number,
     required: true,
   },
+  role: {
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user'
+  }
 })
 
 coachSchema.statics.toClient = function (coaches) {
   return coaches.map(coach => {
-    const { email, firstName, lastName, gender, skills, description, hourlyRate, _id: id } = coach._doc
+    const { email, firstName, lastName, gender, skills, description, hourlyRate, password, _id: id } = coach._doc
     return {
-      email, firstName, lastName, gender, skills, description, hourlyRate,
+      email, firstName, lastName, gender, skills, description, password, hourlyRate,
       id: String(id)
     }
   })

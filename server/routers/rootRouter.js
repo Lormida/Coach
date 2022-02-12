@@ -1,16 +1,24 @@
 const requestController = require('../controllers/requestController')
 const coachController = require('../controllers/coachController')
-
+const authController = require('../controllers/authController')
 const { Router } = require('express')
 const router = Router()
 
 /* ===***=== */
-router.get('/getRequests', requestController.getRequests)
+router.get('/getRequests', authController.isAuth(), authController.filterRequestsByRoles, requestController.getRequests)
 router.post('/createRequest', requestController.createRequest)
-router.delete('/deleteRequestById/:id', requestController.deleteRequestById)
+router.delete('/deleteRequestById/:id', authController.isAuth(), requestController.deleteRequestById)
+
 /* ===***=== */
 router.get('/getCoaches', coachController.getCoaches)
-router.post('/createCoach', coachController.createCoach)
-router.delete('/deleteCoachById/:id', coachController.deleteCoachById)
+router.delete('/deleteCoachById/:id', authController.isAuth(), coachController.deleteCoachById)
+
+/* ===***=== */
+router.post('/createCoach', authController.createCoach)
+router.post('/loginCoach', authController.loginCoach)
+router.post('/logout', authController.logout)
+
+
+router.get('/loadAuthUser', authController.loadAuthUser)
 
 module.exports = router

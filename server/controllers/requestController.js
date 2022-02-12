@@ -1,7 +1,18 @@
 const Request = require('../models/Request')
+const Coach = require('../models/Coach')
 
-exports.getRequests = function (req, res, next) {
-  Request.find()
+exports.getRequests = async function (req, res, next) {
+  const { userId, userRole } = res.locals
+
+  sortObject = null
+  if (userRole === 'admin') {
+    sortObject = {}
+  } else if (userRole === 'user') {
+    const coachEmail = (await Coach.findById(userId)).email
+    sortObject = { coachEmail }
+  }
+
+  Request.find(sortObject)
     .then((data) => {
       const dataToClient = Request.toClient(data)
       res.status(200).json({ arrayRequests: dataToClient })

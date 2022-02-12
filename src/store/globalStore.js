@@ -47,16 +47,58 @@ const store = createStore({
     }
   },
   actions: {
-    loginToSystem({ commit }, login) {
-      commit('setLogin', login)
+    loginToSystem({ commit }, dataAuth) {
+
+      const axiosIns = axios.create({
+        withCredentials: true,
+      })
+
+      axiosIns.post('http://localhost:3000/loginCoach',
+        dataAuth,
+      )
+        .then(response => {
+          console.log(response.data)
+
+          commit('setLogin', response.data.data.email)
+        })
+        .catch(err => console.log(err.message))
+
+
     },
     exitFromSystem({ commit }) {
-      commit('clearLogin')
+      const data = ''
+
+      const axiosIns = axios.create({
+        withCredentials: true,
+      })
+
+      axiosIns.post('http://localhost:3000/logout',
+        data,
+      )
+        .then(() => {
+          commit('clearLogin')
+        })
+        .then(() => {
+          location.reload()
+        })
+        .catch(err => console.log(err.message))
+
     },
     signUp(_, data) {
       axios.post('http://localhost:3000/createCoach', {
         data
       })
+    },
+    loadAuthUser({ commit }) {
+      const axiosIns = axios.create({
+        withCredentials: true,
+      })
+
+      return axiosIns.get('http://localhost:3000/loadAuthUser')
+        .then(response => {
+          commit('setLogin', response.data.data)
+        })
+        .catch(err => console.log(err.message))
     }
   },
 })

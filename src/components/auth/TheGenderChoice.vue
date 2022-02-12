@@ -36,7 +36,7 @@ export default {
 
 <style lang="scss" scoped>
 .form-input {
-  margin: 10px 10px;
+  // margin: 10px 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -45,18 +45,18 @@ export default {
   // .form-input__label
 
   &__label {
-    padding-right: 10px;
-    font-size: 1.8rem;
+    // padding-right: 10px;
+    font-size: 1.5rem;
     font-weight: bold;
     text-align: left;
-    width: 30%;
+    flex-basis: 30%;
   }
 }
 
 .gender {
   display: flex;
-  width: 70%;
-  padding: 15px 0 30px 0;
+  flex-basis: 65%;
+  padding: 15px 5px 30px 0;
   border: 1px solid #000;
 
   // .container-gender__item
@@ -70,35 +70,16 @@ export default {
 
   &__label {
     position: relative;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    width: 25%;
   }
-  /*   &__label::before {
-    content: "";
-    display: inline-block;
-    width: 1em;
-    height: 1em;
-    flex-shrink: 0;
-    flex-grow: 0;
-    border: 1px solid #adb5bd;
-    border-radius: 0.25em;
-    margin-right: 0.5em;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 50% 50%;
-  } */
 
   &__input {
     display: none;
     font-size: 1.8rem;
     line-height: 1.5;
-    width: 70%;
+    width: 65%;
   }
-
-  /*   &__input:checked + label::before {
-    border-color: #0b76ef;
-    background-color: #0b76ef;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
-  } */
 }
 .gender__label::before {
   position: absolute;

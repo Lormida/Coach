@@ -5,7 +5,7 @@ export default {
   loadFilters(state, arrayCoaches) {
     let storeFilters = new Set()
     arrayCoaches.forEach(coach => {
-      storeFilters.add(...coach.skills)
+      coach.skills.forEach(skill => storeFilters.add(skill))
     })
     state.coachesFilter = storeFilters
   }

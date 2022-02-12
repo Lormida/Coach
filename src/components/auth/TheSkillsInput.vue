@@ -43,7 +43,7 @@ export default {
 
 <style lang="scss" scoped>
 .form-input {
-  margin: 10px 10px;
+  margin: 10px 0px;
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -15,13 +15,16 @@ export default {
     // Remove from DB
     axios.delete(`http://localhost:3000/deleteRequestById/${id}`)
       .then(() => commit('removeRequestLocal', id))
-      .catch(err => console.log(err))
+      .catch(err => console.log(err.message))
   },
 
   loadRequests({ commit }) {
-    // Get requests from DB
-    axios.get('http://localhost:3000/getRequests')
+    const axiosIns = axios.create({
+      withCredentials: true,
+    })
+
+    return axiosIns.get('http://localhost:3000/getRequests')
       .then(response => commit('loadRequestsLocal', response.data.arrayRequests))
-      .catch(err => console.log(err))
+      .catch(err => console.log(err.message))
   }
 }

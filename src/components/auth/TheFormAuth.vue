@@ -1,27 +1,27 @@
 <template>
   <form @submit.prevent="loginToSystem" class="form" name="auth">
-    <div class="form-input">
-      <input
-        :class="{ errorValidate: getErrorValidateLogin && !focusIsActive }"
-        @input="validateLogin"
-        @blur="this.focusIsActive = false"
-        list="coaches-login"
-        class="form-input__login"
-        placeholder="Enter login..."
-        name="login"
-        type="text"
-        v-model="loginValue"
-      />
-      <datalist id="coaches-login">
-        <option
-          v-for="coach in getCoaches"
-          :key="coach.id"
-          :value="coach.email"
-        ></option>
-      </datalist>
-    </div>
+    <base-input
+      class="form-login__item form-login__email"
+      id="email"
+      :validator="getErrorValidateLogin"
+      placeholder="Email"
+      label="Email"
+      v-model="email"
+    >
+    </base-input>
+
+    <base-input
+      class="form-login__item form-login__password"
+      id="password"
+      placeholder="*****"
+      label="Password"
+      v-model="password"
+      type="password"
+    >
+    </base-input>
+
     <base-button
-      :disabled="errorValidateLogin || loginValue === ''"
+      :disabled="errorValidateLogin || email === ''"
       type="submit"
       class="form-input__btn-login"
       className="button--login"
@@ -34,9 +34,10 @@
 export default {
   data() {
     return {
-      loginValue: '',
       errorValidateLogin: false,
-      focusIsActive: false
+      focusIsActive: false,
+      password: '',
+      email: ''
     }
   },
   computed: {
@@ -49,19 +50,17 @@ export default {
   },
   methods: {
     loginToSystem() {
-      this.$store.dispatch('loginToSystem', this.loginValue)
-      this.loginValue = ''
-    },
-    focusLogin() {
-      this.focusIsActive = true
+      this.$store.dispatch('loginToSystem', { email: this.email, password: this.password })
+      this.email = ''
+      this.password = ''
     },
     validator(string) {
-      return string.length > 3 && string.includes('@') && string.includes('.')
+      return string.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
     },
-    validateLogin(e) {
-      this.focusLogin()
-
-      if (this.validator(e.target.value)) {
+  },
+  watch: {
+    email(value) {
+      if (this.validator(value)) {
         this.errorValidateLogin = false
       } else {
         // Неверный формат ввода
@@ -83,29 +82,13 @@ export default {
   box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.8);
   border: 1px solid rgba(22, 22, 22, 0.1);
 }
-.form-input {
+
+.form-input__btn-login {
   display: flex;
-  width: 100%;
   justify-content: center;
-
-  // .form-input__login
-  &__login {
-    width: 100%;
-    outline: none;
-    font-size: 2.5rem;
-  }
-
-  // .form-input__btn-login
-  &__btn-login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 15px;
-    font-size: 2.6rem;
-    margin: 20px auto 10px auto;
-  }
-}
-.errorValidate {
-  border: 2px solid rgb(216, 39, 39);
+  align-items: center;
+  padding: 10px 15px;
+  font-size: 2.6rem;
+  margin: 20px auto 10px auto;
 }
 </style>

@@ -10,6 +10,10 @@
 
 <script>
 export default {
+  mounted() {
+    this.$store.dispatch('loadAuthUser')
+
+  },
   computed: {
     getIsLoadingState() {
       return this.$store.getters['getIsLoadingState']
