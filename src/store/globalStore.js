@@ -1,8 +1,8 @@
 import { createStore } from 'vuex'
-
 import axios from 'axios'
 import coachesModule from './modules/coaches/index.js'
 import requestsModule from './modules/requests/index.js'
+
 
 const store = createStore({
   modules: {
@@ -53,13 +53,13 @@ const store = createStore({
         withCredentials: true,
       })
 
-      axiosIns.post('http://localhost:3000/loginCoach',
+      return axiosIns.post('http://localhost:3000/loginCoach',
         dataAuth,
       )
         .then(response => {
-          console.log(response.data)
-
           commit('setLogin', response.data.data.email)
+          console.log('Authorized ... ')
+          // globalEventBus.$emit('message', 'You were loggined!')
         })
         .catch(err => console.log(err.message))
 

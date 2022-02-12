@@ -6,12 +6,17 @@
       <component :is="Component" />
     </transition>
   </router-view>
+
+  <!-- <tooltip-message></tooltip-message> -->
 </template>
 
 <script>
+
 export default {
   mounted() {
     this.$store.dispatch('loadAuthUser')
+  },
+  created() {
 
   },
   computed: {

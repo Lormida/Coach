@@ -1,10 +1,13 @@
 const express = require('express')
 const cors = require('cors')
 const app = express()
+const {globalErrorHandler} = require('./controllers/errorController')
 const { urlencoded } = require('express')
 const rootRouter = require('./routers/rootRouter')
 const cookieParser = require('cookie-parser')
+const helmet = require('helmet')
 
+app.use(helmet())
 app.use(cookieParser())
 
 app.use(cors({
@@ -17,6 +20,15 @@ app.use(urlencoded({ extended: false }))
 
 app.use('/', rootRouter)
 
+app.all('*', (req, res, next) => {
+  const err = new Error(`Cant find ${req.originalUrl} on this server!`)
+  err.status = 'fail'
+  err.statusCode = 404
+
+  next(err)
+})
+
+app.use(globalErrorHandler)
 
 
 module.exports = app

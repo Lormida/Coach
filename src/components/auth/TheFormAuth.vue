@@ -51,6 +51,7 @@ export default {
   methods: {
     loginToSystem() {
       this.$store.dispatch('loginToSystem', { email: this.email, password: this.password })
+        .then(() => this.$router.push({ name: "Coaches" }))
       this.email = ''
       this.password = ''
     },
@@ -88,7 +89,7 @@ export default {
   justify-content: center;
   align-items: center;
   padding: 10px 15px;
-  font-size: 2.6rem;
+  font-size: 1.8rem;
   margin: 20px auto 10px auto;
 }
 </style>

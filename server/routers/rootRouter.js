@@ -6,8 +6,8 @@ const router = Router()
 
 /* ===***=== */
 router.get('/getRequests', authController.isAuth(), authController.filterRequestsByRoles, requestController.getRequests)
-router.post('/createRequest', requestController.createRequest)
 router.delete('/deleteRequestById/:id', authController.isAuth(), requestController.deleteRequestById)
+router.post('/createRequest', requestController.createRequest)
 
 /* ===***=== */
 router.get('/getCoaches', coachController.getCoaches)
