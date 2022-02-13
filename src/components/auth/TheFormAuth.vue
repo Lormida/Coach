@@ -51,7 +51,11 @@ export default {
   methods: {
     loginToSystem() {
       this.$store.dispatch('loginToSystem', { email: this.email, password: this.password })
-        .then(() => this.$router.push({ name: "Coaches" }))
+        .then((success) => {
+          if (success) {
+            this.$router.push({ name: "Coaches" })
+          }
+        })
       this.email = ''
       this.password = ''
     },

@@ -8,7 +8,7 @@ export default {
       data
     })
       .then(() => commit('addRequest', data))
-      .catch(err => console.log(err))
+      .catch(err => console.log(err.message))
   },
 
   removeRequest({ commit }, id) {
@@ -24,7 +24,14 @@ export default {
     })
 
     return axiosIns.get('http://localhost:3000/getRequests')
-      .then(response => commit('loadRequestsLocal', response.data.arrayRequests))
+      .then(response => {
+        if (response.data?.err) {
+          const { error, statusCode, status } = response.data.err
+          commit('generateTooltipMessage', { error, statusCode, status }, { root: true })
+        }
+        commit('loadRequestsLocal', response.data.arrayRequests
+        )
+      })
       .catch(err => console.log(err.message))
   }
 }

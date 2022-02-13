@@ -14,7 +14,7 @@ mongoose.connect(url, {
       console.log('server run')
     })
   })
-  .catch(err => console.log(err))
+  .catch(err => console.log(err.message))
 
 
 process.on('unhandledRejection', err => {

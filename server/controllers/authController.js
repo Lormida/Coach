@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const { secretKey } = require('../secret')
 const jwt = require('jsonwebtoken')
 const { catchAsync } = require('../utils/catchAsync')
+const AppError = require('../utils/AppError')
 
 const createToken = (userId, userRole) => {
   return jwt.sign({ userId, userRole }, secretKey, { expiresIn: 60 * 60 * 1000 })
@@ -16,7 +17,7 @@ exports.createCoach = catchAsync(function (req, res, next) {
     .then(coach => {
       return new Promise((resolve, reject) => {
         if (coach) {
-          reject(new Error('Coach exists!'))
+          reject(new AppError('Coach exists!'))
         }
         resolve(req.body.data)
       })
@@ -37,16 +38,17 @@ exports.loginCoach = catchAsync(function (req, res) {
         if (coach) {
           resolve(coach)
         }
-        reject(new Error('Coach with given email doesn\t exists'))
+        reject(new AppError('Coach with given email doesn\t exists'))
       })
     })
     .then(coach => {
       return new Promise((resolve, reject) => {
         bcrypt.compare(password, coach.password, (err, concurrence) => {
           if (err) {
-            reject(new Error('Error during comparing passwords'))
+            reject(new AppError('Error during comparing passwords'))
           } else if (!concurrence) {
-            reject(new Error('Incorrect password'))
+            // res.json({ text: 'xui' })
+            reject(new AppError('Incorrect password'))
           }
           resolve(coach)
         })
@@ -60,7 +62,7 @@ exports.loginCoach = catchAsync(function (req, res) {
         // httpOnly: true,
         expires: new Date(Date.now() + 60 * 1000)
       })
-      return res.status(201).json({ data: coach, status: 'success' })
+      return res.status(201).json({ data: coach, status: 'success', message: 'You were login!' })
     })
 })
 
@@ -69,15 +71,15 @@ exports.isAuth = function (roles) {
     return new Promise((resolve, reject) => {
       const token = req.cookies.jwt
       if (!token) {
-        reject(new Error('Anauthorized user. Token not exists!'))
+        reject(new AppError('Anauthorized user. Token not exists!'))
       }
       jwt.verify(token, secretKey, (err, decoded) => {
         if (err) {
-          reject(new Error('Error validation JWT!'))
+          reject(new AppError('Error validation JWT!'))
         }
         const { userRole } = decoded
         if (roles && !roles.includes(userRole)) {
-          reject(new Error('Error role. You don\'t have permission to given operation!'))
+          reject(new AppError('Error role. You don\'t have permission to given operation!'))
         }
         resolve(next())
       })
@@ -105,7 +107,7 @@ exports.filterRequestsByRoles = catchAsync(function (req, res, next) {
   return new Promise((resolve, reject) => {
     jwt.verify(req.cookies.jwt, secretKey, (err, decoded) => {
       if (err) {
-        reject(new Error('JWT is exists, but it\'s incorrect, re-login'))
+        reject(new AppError('JWT is exists, but it\'s incorrect, re-login'))
       }
       const { userId, userRole } = decoded
 

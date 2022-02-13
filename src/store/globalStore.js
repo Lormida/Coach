@@ -11,6 +11,7 @@ const store = createStore({
   },
   state() {
     return {
+      errorObject: {},
       myLogin: '',
       isLoading: false,
       colorsArray: ['#001219', '#ffafcc', '#4cc9f0', '#ffc6ff', '#ff4d6d', '#dee2ff', '#7b2cbf', '#EC058E', '#005f73', '#0a9396', '#94d2bd', '#e9d8a6', '#ee9b00', '#ca6702', '#ae2012', '#9b2226'],
@@ -19,6 +20,9 @@ const store = createStore({
 
   },
   getters: {
+    getErrorObject(state) {
+      return state.errorObject
+    },
     getMyLogin(state) {
       return state.myLogin
     },
@@ -36,6 +40,9 @@ const store = createStore({
     },
   },
   mutations: {
+    generateTooltipMessage(state, errorObject) {
+      state.errorObject = errorObject
+    },
     setLogin(state, login) {
       state.myLogin = login
     },
@@ -44,11 +51,13 @@ const store = createStore({
     },
     toggleIsLoadingState(state, status) {
       state.isLoading = status
+    },
+    clearMessages(state) {
+      state.errorObject = {}
     }
   },
   actions: {
     loginToSystem({ commit }, dataAuth) {
-
       const axiosIns = axios.create({
         withCredentials: true,
       })
@@ -57,11 +66,20 @@ const store = createStore({
         dataAuth,
       )
         .then(response => {
-          commit('setLogin', response.data.data.email)
-          console.log('Authorized ... ')
-          // globalEventBus.$emit('message', 'You were loggined!')
+          if (response.data?.err) {
+            const { error, statusCode, status } = response.data.err
+            commit('generateTooltipMessage', { error, statusCode, status }, { root: true })
+            return false
+          } else {
+            commit('setLogin', response.data.data.email)
+            
+            const { status, message } = response.data
+            commit('generateTooltipMessage', { error: message, status }, { root: true })
+            return true
+          }
         })
         .catch(err => console.log(err.message))
+
 
 
     },
@@ -75,11 +93,15 @@ const store = createStore({
       axiosIns.post('http://localhost:3000/logout',
         data,
       )
-        .then(() => {
-          commit('clearLogin')
-        })
-        .then(() => {
-          location.reload()
+        .then((response) => {
+          if (response.data?.err) {
+            const { error, statusCode, status } = response.data.err
+            commit('generateTooltipMessage', { error, statusCode, status }, { root: true })
+          } else {
+            commit('clearLogin')
+            const { status, message } = response.data
+            commit('generateTooltipMessage', { error: message, status }, { root: true })
+          }
         })
         .catch(err => console.log(err.message))
 

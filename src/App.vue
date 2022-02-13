@@ -7,12 +7,20 @@
     </transition>
   </router-view>
 
-  <!-- <tooltip-message></tooltip-message> -->
+  <tooltip-message
+    v-if="Object.keys(getErrorObject).length > 0"
+    :err="getErrorObject"
+    seconds="4"
+  ></tooltip-message>
 </template>
 
 <script>
+import TooltipMessage from './components/UI/TooltipMessage'
 
 export default {
+  components: {
+    TooltipMessage
+  },
   mounted() {
     this.$store.dispatch('loadAuthUser')
   },
@@ -20,6 +28,9 @@ export default {
 
   },
   computed: {
+    getErrorObject() {
+      return this.$store.getters['getErrorObject']
+    },
     getIsLoadingState() {
       return this.$store.getters['getIsLoadingState']
     },
