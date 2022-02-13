@@ -11,14 +11,14 @@ export default {
   props: ['err', 'seconds'],
   computed: {
     getMessageStatus() {
-      return this.err.status === 'success' ? 'message--success' : 'message--failure'
+      return this.err?.status === 'success' ? 'message--success' : 'message--failure' || 'message--failure'
     },
     getMessageBody() {
-      return this.err.error
+      return this.err.error || 'Error'
     },
     getMessageTitle() {
       if (this.err.status !== 'success') {
-        return this.err.status[0].toUpperCase() + this.err.status.slice(1) + ` [${this.err.statusCode}]`
+        return 'Failure' + ` [${this.err?.statusCode || 500}]`
       }
       return this.err.status[0].toUpperCase() + this.err.status.slice(1)
     }
@@ -80,7 +80,7 @@ export default {
 
   &__body {
     font-weight: 400;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     line-height: 1.4;
     text-align: center;
   }
@@ -90,15 +90,15 @@ export default {
   &__seconds {
     margin: 0 auto;
     background-color: #222;
-    border: 5px solid #fff;
-    padding: 10px;
+    border: 3px solid #fff;
+    padding: 7px;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 10px;
     height: 10px;
     border-radius: 100%;
-    font-size: 2rem;
+    font-size: 1.2rem;
     color: #fff;
   }
 }

@@ -72,7 +72,7 @@ const store = createStore({
             return false
           } else {
             commit('setLogin', response.data.data.email)
-            
+
             const { status, message } = response.data
             commit('generateTooltipMessage', { error: message, status }, { root: true })
             return true
@@ -106,10 +106,22 @@ const store = createStore({
         .catch(err => console.log(err.message))
 
     },
-    signUp(_, data) {
+    signUp({ commit }, data) {
+
       axios.post('http://localhost:3000/createCoach', {
         data
       })
+        .then(response => {
+          console.log(response.data)
+
+          if (response.data?.err) {
+            const { error, statusCode, status } = response.data.err
+            commit('generateTooltipMessage', { error, statusCode, status }, { root: true })
+          } else {
+            const { status, message } = response.data
+            commit('generateTooltipMessage', { error: message, status }, { root: true })
+          }
+        })
     },
     loadAuthUser({ commit }) {
       const axiosIns = axios.create({

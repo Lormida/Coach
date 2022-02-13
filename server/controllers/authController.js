@@ -26,7 +26,7 @@ exports.createCoach = catchAsync(function (req, res, next) {
     .then(() => {
       return Coach.create({ ...req.body.data })
     })
-    .then((data) => res.status(200).json({ status: 'success created', data }))
+    .then((data) => res.status(200).json({ status: 'success', message: 'The coach was be created!', data }))
 })
 
 exports.loginCoach = catchAsync(function (req, res) {
