@@ -38,6 +38,11 @@ const routes = [
     name: 'Sign-Up',
     component: SignUp
   },
+  {
+    path: '/:notFound(.*)',
+    name: 'NotFound',
+    redirect: { name: 'Authorization' }
+  }
 
 ]
 

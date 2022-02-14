@@ -93,14 +93,18 @@ exports.hasPermission = function (roles) {
   })
 }
 
-exports.loadAuthUser = catchAsync(async function (req, res) {
-  let token = req.cookies.jwt
-  if (token) {
-    let { userId } = jwt.decode(token, secretKey)
-    let userAuth = await Coach.findById(userId)
-    return res.status(200).json({ data: userAuth.email })
-  }
-})
+exports.loadAuthUser = function (req, res) {
+  return new Promise(async (resolve, reject) => {
+    let token = req.cookies?.jwt
+    if (token) {
+      let { userId } = jwt.verify(token, secretKey)
+      let userAuth = await Coach.findById(userId)
+      return res.status(200).json({ data: userAuth.email })
+    }
+    return reject()
+  })
+    .catch(err => console.log(err))
+}
 
 exports.logout = function (req, res) {
   // Удаляем из куки

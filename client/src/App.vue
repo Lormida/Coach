@@ -1,4 +1,4 @@
-<template>
+<template v-cloak>
   <div>
     <the-header></the-header>
     <spinner v-if="getIsLoadingState"></spinner>
@@ -44,6 +44,10 @@ export default {
 </script>
 
 <style lang="scss">
+[v-cloak] {
+  display: none;
+}
+
 .active {
   transition: all 0.3s ease 0s;
   border-bottom: 4px solid #fff !important;
