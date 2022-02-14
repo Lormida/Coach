@@ -12,18 +12,14 @@ const createError = require('http-errors')
 app.use(cookieParser())
 
 app.use(cors({
-  origin: "http://localhost:8080",
-  credentials: true,
+  // origin: "http://localhost:8080",
+  // credentials: true,
 }))
 
 app.use(express.json())
 app.use(urlencoded({ extended: false }))
 
-app.use('/', rootRouter)
-
-app.all('*', (req, res, next) => {
-  next(new createError(404, `Cant find ${req.originalUrl} on this server!`))
-})
+app.use('/api', rootRouter)
 
 app.use((error, req, res, next) => {
   // Установка кода состояния ответа\
@@ -36,6 +32,19 @@ app.use((error, req, res, next) => {
     status: error.status,
     message: error.message,
   })
+})
+
+// Handle production
+if (process.env.NODE_ENV === 'production') {
+  // Static folder
+  app.use(express.static(__dirname + '/public/'))
+
+  // Handle SPA
+  app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'))
+}
+
+app.all('*', (req, res, next) => {
+  next(new createError(404, `Cant find ${req.originalUrl} on this server!`))
 })
 
 

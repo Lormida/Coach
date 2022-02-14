@@ -10,8 +10,9 @@ mongoose.connect(url, {
   useNewUrlParser: true,
 })
   .then(() => {
-    server = app.listen(3000, () => {
-      console.log('server run')
+    const port = process.env.PORT || 3000;
+    server = app.listen(port, () => {
+      console.log(`server run on ${port}`)
     })
   })
   .catch(err => console.log(err.message))
