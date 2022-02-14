@@ -84,6 +84,15 @@ export default {
     }
   },
   methods: {
+    clearSignForm() {
+      this.email = ""
+      this.name = ""
+      this.rate = ""
+      this.gender = null
+      this.skills = null
+      this.description = ""
+      this.password = ""
+    },
     createAccount() {
       const dataUser = {
         email: this.email, firstName: this.name.split(' ')[0], lastName: this.name.split(' ')[1],
@@ -91,6 +100,12 @@ export default {
         password: this.password
       }
       this.$store.dispatch('signUp', dataUser)
+        .then((success) => {
+          if (success) {
+            this.clearSignForm()
+            this.$router.replace({ name: "Authorization" })
+          }
+        })
     }
   }
 }

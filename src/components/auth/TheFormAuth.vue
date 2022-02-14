@@ -53,7 +53,7 @@ export default {
       this.$store.dispatch('loginToSystem', { email: this.email, password: this.password })
         .then((success) => {
           if (success) {
-            this.$router.push({ name: "Coaches" })
+            this.$router.replace({ name: "Coaches" })
           }
         })
       this.email = ''

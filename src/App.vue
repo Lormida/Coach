@@ -8,9 +8,9 @@
   </router-view>
 
   <tooltip-message
-    v-if="Object.keys(getErrorObject).length > 0"
-    :err="getErrorObject"
-    seconds="4"
+    v-if="getObjTooltip"
+    :objTooltip="getObjTooltip"
+    :seconds="3"
   ></tooltip-message>
 </template>
 
@@ -23,13 +23,11 @@ export default {
   },
   mounted() {
     this.$store.dispatch('loadAuthUser')
-  },
-  created() {
-
+    this.$store.commit('setInit')
   },
   computed: {
-    getErrorObject() {
-      return this.$store.getters['getErrorObject']
+    getObjTooltip() {
+      return this.$store.getters['getObjTooltip']
     },
     getIsLoadingState() {
       return this.$store.getters['getIsLoadingState']

@@ -11,7 +11,8 @@ const store = createStore({
   },
   state() {
     return {
-      errorObject: {},
+      init: null,
+      objTooltip: null,
       myLogin: '',
       isLoading: false,
       colorsArray: ['#001219', '#ffafcc', '#4cc9f0', '#ffc6ff', '#ff4d6d', '#dee2ff', '#7b2cbf', '#EC058E', '#005f73', '#0a9396', '#94d2bd', '#e9d8a6', '#ee9b00', '#ca6702', '#ae2012', '#9b2226'],
@@ -20,11 +21,14 @@ const store = createStore({
 
   },
   getters: {
-    getErrorObject(state) {
-      return state.errorObject
+    getObjTooltip(state) {
+      return state.objTooltip
     },
     getMyLogin(state) {
       return state.myLogin
+    },
+    getInit(state) {
+      return state.init
     },
     getIsLoadingState(state) {
       return state.isLoading
@@ -40,8 +44,8 @@ const store = createStore({
     },
   },
   mutations: {
-    generateTooltipMessage(state, errorObject) {
-      state.errorObject = errorObject
+    generateTooltipMessage(state, objTooltip) {
+      state.objTooltip = objTooltip
     },
     setLogin(state, login) {
       state.myLogin = login
@@ -49,11 +53,14 @@ const store = createStore({
     clearLogin(state) {
       state.myLogin = ''
     },
+    setInit(state) {
+      state.init = true
+    },
     toggleIsLoadingState(state, status) {
       state.isLoading = status
     },
     clearMessages(state) {
-      state.errorObject = {}
+      state.objTooltip = null
     }
   },
   actions: {
@@ -66,61 +73,49 @@ const store = createStore({
         dataAuth,
       )
         .then(response => {
-          if (response.data?.err) {
-            const { error, statusCode, status } = response.data.err
-            commit('generateTooltipMessage', { error, statusCode, status }, { root: true })
-            return false
-          } else {
-            commit('setLogin', response.data.data.email)
-
-            const { status, message } = response.data
-            commit('generateTooltipMessage', { error: message, status }, { root: true })
-            return true
-          }
+          commit('setLogin', response.data.data.email)
+          const { message, status } = response.data
+          commit('generateTooltipMessage', { message, status }, { root: true })
+          return true
         })
-        .catch(err => console.log(err.message))
-
-
-
+        .catch(err => {
+          const { message, status } = err.response.data
+          commit('generateTooltipMessage', { message, status }, { root: true })
+        })
     },
-    exitFromSystem({ commit }) {
-      const data = ''
-
+    exitFromSystem({ commit, dispatch }) {
       const axiosIns = axios.create({
         withCredentials: true,
       })
 
-      axiosIns.post('http://localhost:3000/logout',
-        data,
+      return axiosIns.post('http://localhost:3000/logout',
+        {},
       )
         .then((response) => {
-          if (response.data?.err) {
-            const { error, statusCode, status } = response.data.err
-            commit('generateTooltipMessage', { error, statusCode, status }, { root: true })
-          } else {
-            commit('clearLogin')
-            const { status, message } = response.data
-            commit('generateTooltipMessage', { error: message, status }, { root: true })
-          }
+          // Remove all data
+          dispatch('clearDataInSystem')
+          const { message, status } = response.data
+          commit('generateTooltipMessage', { message, status }, { root: true })
+          return true
         })
-        .catch(err => console.log(err.message))
-
+        .catch(err => {
+          const { message, status } = err.response.data
+          commit('generateTooltipMessage', { message, status }, { root: true })
+        })
     },
     signUp({ commit }, data) {
 
-      axios.post('http://localhost:3000/createCoach', {
+      return axios.post('http://localhost:3000/createCoach', {
         data
       })
         .then(response => {
-          console.log(response.data)
-
-          if (response.data?.err) {
-            const { error, statusCode, status } = response.data.err
-            commit('generateTooltipMessage', { error, statusCode, status }, { root: true })
-          } else {
-            const { status, message } = response.data
-            commit('generateTooltipMessage', { error: message, status }, { root: true })
-          }
+          const { message, status } = response.data
+          commit('generateTooltipMessage', { message, status }, { root: true })
+          return true
+        })
+        .catch(err => {
+          const { message, status } = err.response.data
+          commit('generateTooltipMessage', { message, status }, { root: true })
         })
     },
     loadAuthUser({ commit }) {
@@ -130,9 +125,15 @@ const store = createStore({
 
       return axiosIns.get('http://localhost:3000/loadAuthUser')
         .then(response => {
-          commit('setLogin', response.data.data)
+          const login = response.data.data
+          commit('setLogin', login)
+          return login
         })
         .catch(err => console.log(err.message))
+    },
+    clearDataInSystem({ commit }) {
+      commit('clearLogin')
+      commit('requests/clearRequests')
     }
   },
 })

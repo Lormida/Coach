@@ -8,7 +8,10 @@
         :to="{ name: 'Coaches' }"
         >All Coaches</router-link
       >
-      <router-link class="menu-wrapper__item" :to="{ name: 'Requests' }"
+      <router-link
+        v-if="getMyLogin"
+        class="menu-wrapper__item"
+        :to="{ name: 'Requests' }"
         >Requests</router-link
       >
       <router-link
@@ -37,7 +40,11 @@ export default {
   },
   methods: {
     exit() {
-      this.$store.dispatch('exitFromSystem')
+      this.$store.dispatch('exitFromSystem').then((success) => {
+        if (success) {
+          this.$router.replace({ name: "Authorization" })
+        }
+      })
     }
   }
 

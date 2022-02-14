@@ -8,21 +8,29 @@
 
 <script>
 export default {
-  props: ['err', 'seconds'],
+  props: {
+    objTooltip: {
+      type: Object,
+      required: true
+    },
+    seconds: {
+      type: Number,
+      default: 9,
+    }
+  },
   computed: {
     getMessageStatus() {
-      return this.err?.status === 'success' ? 'message--success' : 'message--failure' || 'message--failure'
+      return (this.getMessageTitle === 'Success' ? 'message--success' : 'message--failure') || 'message--failure'
     },
     getMessageBody() {
-      return this.err.error || 'Error'
+      return this.objTooltip.message || 'Error'
     },
     getMessageTitle() {
-      if (this.err.status !== 'success') {
-        return 'Failure' + ` [${this.err?.statusCode || 500}]`
+      if (String(this.objTooltip.status).startsWith('4') || String(this.objTooltip.status).startsWith('5')) {
+        return 'Failure' + ` [${this.objTooltip.status}]`
       }
-      return this.err.status[0].toUpperCase() + this.err.status.slice(1)
+      return 'Success'
     }
-    // error, statusCode, status
   },
   data() {
     return {
@@ -42,14 +50,13 @@ export default {
       }, 1000)
     })
       .then(() => this.$store.commit('clearMessages'))
-
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .message--success {
-  background-color: rgba(7, 255, 19, 0.95);
+  background-color: rgba(7, 255, 152, 0.95);
 }
 .message--failure {
   background-color: rgba(240, 30, 65, 0.95);
@@ -60,14 +67,14 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  border-radius: 10px;
+  box-shadow: 4px 4px 8px 0px rgba(22, 22, 22, 0.6);
   top: 1%;
   left: 50%;
   transform: translate(-50%);
   position: fixed;
   width: fit-content;
   min-width: 20%;
-  height: 95px;
+  height: fit-content;
   padding: 10px 20px;
 
   &__title {

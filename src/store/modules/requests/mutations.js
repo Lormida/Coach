@@ -7,5 +7,8 @@ export default {
   },
   loadRequestsLocal(state, arrayRequests) {
     state.requests = arrayRequests
+  },
+  clearRequests(state) {
+    state.requests = []
   }
 }

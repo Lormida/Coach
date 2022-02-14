@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 v-if="getRequests?.length == 0 && !getIsLoadingState">
-      There is not any requests! {{getIsLoadingState}}
+      There is not any requests! {{ getIsLoadingState }}
     </h1>
     <the-requests-list
       v-if="!getIsLoadingState"
@@ -30,7 +30,12 @@ export default {
   created() {
     this.$store.commit('toggleIsLoadingState', true)
     this.$store.dispatch('requests/loadRequests')
-      .then(() => setTimeout(() => this.$store.commit('toggleIsLoadingState', false), 200))
+      .then((status) => {
+        if (!status) {
+          this.$router.replace({ name: "Authorization" })
+        }
+        setTimeout(() => this.$store.commit('toggleIsLoadingState', false), 200)
+      })
   }
 }
 </script>
