@@ -12,6 +12,7 @@
 <script>
 import CoachItem from './CoachItem.vue'
 export default {
+  // No lazy!
   components: {
     CoachItem
   },

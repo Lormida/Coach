@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+let url = '/api'
+
 export default {
   loadCoaches({ commit }) {
     // Get requests from DB
@@ -8,7 +10,7 @@ export default {
       withCredentials: true,
     })
 
-    return axiosIns.get('api/getCoaches')
+    return axiosIns.get(`${url}/getCoaches`)
       .then(response => {
         commit('loadCoachesLocal', response.data.arrayCoaches)
       })

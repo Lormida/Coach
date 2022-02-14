@@ -11,13 +11,11 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue'
 
-import TheRequestsList from '../components/requests/TheRequestsList.vue'
-import Spinner from '../components/UI/Spinner.vue'
 export default {
   components: {
-    TheRequestsList,
-    Spinner
+    TheRequestsList: defineAsyncComponent(() => import('../components/requests/TheRequestsList.vue')),
   },
   computed: {
     getIsLoadingState() {

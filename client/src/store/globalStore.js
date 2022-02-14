@@ -3,6 +3,7 @@ import axios from 'axios'
 import coachesModule from './modules/coaches/index.js'
 import requestsModule from './modules/requests/index.js'
 
+let url = '/api'
 
 const store = createStore({
   modules: {
@@ -63,7 +64,7 @@ const store = createStore({
         withCredentials: true,
       })
 
-      return axiosIns.post('api/loginCoach',
+      return axiosIns.post(`${url}/loginCoach`,
         dataAuth,
       )
         .then(response => {
@@ -82,7 +83,7 @@ const store = createStore({
         withCredentials: true,
       })
 
-      return axiosIns.post('api/logout',
+      return axiosIns.post(`${url}/logout`,
         {},
       )
         .then((response) => {
@@ -99,7 +100,7 @@ const store = createStore({
     },
     signUp({ commit }, data) {
 
-      return axios.post('api/createCoach', {
+      return axios.post(`${url}/createCoach`, {
         data
       })
         .then(response => {
@@ -117,7 +118,7 @@ const store = createStore({
         withCredentials: true,
       })
 
-      return axiosIns.get('api/loadAuthUser')
+      return axiosIns.get(`${url}/loadAuthUser`)
         .then(response => {
           const login = response.data.data
           commit('setLogin', login)

@@ -5,9 +5,9 @@ const { Router } = require('express')
 const router = Router()
 
 /* ===***=== */
+router.post('/addRequest', requestController.addRequest)
 router.get('/getRequests', authController.isAuth, requestController.getRequests)
 router.delete('/deleteRequestById/:id', authController.isAuth, requestController.deleteRequestById)
-router.post('/createRequest', requestController.createRequest)
 
 /* ===***=== */
 router.get('/getCoaches', coachController.getCoaches)

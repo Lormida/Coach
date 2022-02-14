@@ -54,11 +54,13 @@
 </template>
 
 <script>
-import TheModalContact from './TheModalContact.vue'
-import TheDialogWindowSuccess from '../requests/TheDialogWindowSuccess.vue'
+import { defineAsyncComponent } from 'vue'
 
 export default {
-  components: { TheModalContact, TheDialogWindowSuccess },
+  components: {
+    TheModalContact: defineAsyncComponent(() => import('./TheModalContact.vue')),
+    TheDialogWindowSuccess: defineAsyncComponent(() => import('../requests/TheDialogWindowSuccess.vue'))
+  },
   props: ['id'],
   data() {
     return {

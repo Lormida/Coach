@@ -16,7 +16,7 @@
 import TheCoachesFilter from '../components/coaches/TheCoachesFilter.vue'
 import TheCoachesList from '../components/coaches/TheCoachesList.vue'
 
-
+// No lazy!!
 export default {
   components: {
     TheCoachesFilter,

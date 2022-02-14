@@ -17,12 +17,12 @@ exports.getRequests = catchAsync(async function (req, res, next) {
   res.status(200).json({ arrayRequests: dataToClient })
 })
 
-exports.createRequest = catchAsync(function (req, res, next) {
-  Request.create(req.body.data)
+exports.addRequest = catchAsync(function (req, res, next) {
+  return Request.create(req.body.data)
     .then((data) => res.status(201).json({ status: 'success created', ...data }))
 })
 
 exports.deleteRequestById = catchAsync(function (req, res, next) {
-  Request.deleteOne(req.params)
+  return Request.deleteOne(req.params)
     .then(() => res.status(200).json({ status: 'success deleted' }))
 })

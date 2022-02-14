@@ -1,25 +1,49 @@
 const express = require('express')
 const cors = require('cors')
+var compression = require('compression')
 const app = express()
-// const { globalErrorHandler } = require('./controllers/errorController')
+
+app.use(compression())
+
 const { urlencoded } = require('express')
 const rootRouter = require('./routers/rootRouter')
 const cookieParser = require('cookie-parser')
 const helmet = require('helmet')
 const createError = require('http-errors')
 
-// app.use(helmet())
+app.use(helmet())
 app.use(cookieParser())
 
 app.use(cors({
   // origin: "http://localhost:8080",
-  // credentials: true,
+  credentials: true,
 }))
 
 app.use(express.json())
 app.use(urlencoded({ extended: false }))
 
+
 app.use('/api', rootRouter)
+
+
+
+
+// Handle production
+if (process.env.NODE_ENV === 'production') {
+
+  // compress all responses
+  app.use(compression())
+
+  // Static folder
+  app.use(express.static(__dirname + '/public/'))
+  // Handle SPA
+  app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'))
+}
+
+app.all('*', (req, res, next) => {
+  next(new createError(404, `Cant find ${req.originalUrl} on this server!`))
+})
+
 
 app.use((error, req, res, next) => {
   // Установка кода состояния ответа\
@@ -32,19 +56,6 @@ app.use((error, req, res, next) => {
     status: error.status,
     message: error.message,
   })
-})
-
-// Handle production
-if (process.env.NODE_ENV === 'production') {
-  // Static folder
-  app.use(express.static(__dirname + '/public/'))
-
-  // Handle SPA
-  app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'))
-}
-
-app.all('*', (req, res, next) => {
-  next(new createError(404, `Cant find ${req.originalUrl} on this server!`))
 })
 
 

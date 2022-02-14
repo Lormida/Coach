@@ -1,32 +1,33 @@
 <template>
-  <the-header></the-header>
-  <spinner v-if="getIsLoadingState"></spinner>
-  <router-view v-slot="{ Component }">
-    <transition name="page" mode="out-in">
-      <component :is="Component" />
-    </transition>
-  </router-view>
+  <div>
+    <the-header></the-header>
+    <spinner v-if="getIsLoadingState"></spinner>
+    <router-view v-slot="{ Component }">
+      <transition name="page" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
 
-  <template v-if="getArrayObjTooltip">
-    <tooltip-wrapper>
-      <tooltip-message
-        v-for="objTooltip in getArrayObjTooltip"
-        :key="objTooltip.id"
-        :objTooltip="objTooltip"
-        :seconds="3"
-      ></tooltip-message>
-    </tooltip-wrapper>
-  </template>
+    <template v-if="getArrayObjTooltip">
+      <tooltip-wrapper>
+        <tooltip-message
+          v-for="objTooltip in getArrayObjTooltip"
+          :key="objTooltip.id"
+          :objTooltip="objTooltip"
+          :seconds="3"
+        ></tooltip-message>
+      </tooltip-wrapper>
+    </template>
+  </div>
 </template>
 
 <script>
-import TooltipMessage from './components/UI/TooltipMessage'
-import TooltipWrapper from './components/UI/TooltipWrapper'
+import { defineAsyncComponent } from 'vue'
 
 export default {
   components: {
-    TooltipMessage,
-    TooltipWrapper
+    TooltipMessage: defineAsyncComponent(() => import('./components/UI/TooltipMessage')),
+    TooltipWrapper: defineAsyncComponent(() => import('./components/UI/TooltipWrapper')),
   },
   created() {
     this.$store.dispatch('loadAuthUser')

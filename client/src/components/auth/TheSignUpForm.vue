@@ -64,13 +64,12 @@
 </template>
 
 <script>
-import TheSkillsInput from './TheSkillsInput.vue'
-import TheGenderChoice from './TheGenderChoice.vue'
+import { defineAsyncComponent } from 'vue'
 
 export default {
   components: {
-    TheSkillsInput,
-    TheGenderChoice
+    TheSkillsInput: defineAsyncComponent(() => import('./TheSkillsInput.vue')),
+    TheGenderChoice: defineAsyncComponent(() => import('./TheGenderChoice.vue')),
   },
   data() {
     return {

@@ -1,10 +1,17 @@
 import axios from "axios"
 
+let url = '/api'
+
 export default {
   createRequest({ commit }, data) {
     // Adding request to DB
+    console.log('Create request!')
 
-    axios.post('api/createRequest', {
+    const axiosIns = axios.create({
+      withCredentials: true,
+    })
+
+    return axiosIns.post(`${url}/addRequest`, {
       data
     })
       .then(() => commit('addRequest', data))
@@ -12,7 +19,7 @@ export default {
   },
   removeRequest({ commit }, id) {
     // Remove from DB
-    axios.delete(`api/deleteRequestById/${id}`)
+    axios.delete(`${url}/deleteRequestById/${id}`)
       .then(() => commit('removeRequestLocal', id))
       .catch(err => console.log(err.message))
   },
@@ -21,7 +28,7 @@ export default {
       withCredentials: true,
     })
 
-    return axiosIns.get('api/getRequests')
+    return axiosIns.get(`${url}/getRequests`)
       .then((response) => {
         commit('loadRequestsLocal', response.data.arrayRequests)
         return true

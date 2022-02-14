@@ -49,9 +49,7 @@
 </template>
 
 <script>
-import BaseButton from '../UI/BaseButton.vue'
 export default {
-  components: { BaseButton },
   props: ['coachEmail'],
   emits: ['close-modal, open-dialog'],
   data() {
