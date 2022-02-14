@@ -7,7 +7,8 @@ import axios from 'axios'
 import router from './router/globalRouter'
 import store from './store/globalStore'
 
-const BaseWrapper = defineAsyncComponent(() => import('./components/UI/BaseWrapper'))
+import BaseWrapper from './components/UI/BaseWrapper'
+
 const BaseInput = defineAsyncComponent(() => import('./components/UI/BaseInput'))
 const BaseButton = defineAsyncComponent(() => import('./components/UI/BaseButton'))
 const BaseBadge = defineAsyncComponent(() => import('./components/UI/BaseBadge'))

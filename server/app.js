@@ -1,39 +1,27 @@
 const express = require('express')
 const cors = require('cors')
-var compression = require('compression')
-const app = express()
-
-app.use(compression())
-
+const compression = require('compression')
 const { urlencoded } = require('express')
 const rootRouter = require('./routers/rootRouter')
 const cookieParser = require('cookie-parser')
 const helmet = require('helmet')
 const createError = require('http-errors')
+const app = express()
 
 app.use(helmet())
 app.use(cookieParser())
-
 app.use(cors({
   // origin: "http://localhost:8080",
   credentials: true,
 }))
-
 app.use(express.json())
 app.use(urlencoded({ extended: false }))
-
-
+// compress all responses
+app.use(compression())
 app.use('/api', rootRouter)
-
-
-
 
 // Handle production
 if (process.env.NODE_ENV === 'production') {
-
-  // compress all responses
-  app.use(compression())
-
   // Static folder
   app.use(express.static(__dirname + '/public/'))
   // Handle SPA
@@ -43,7 +31,6 @@ if (process.env.NODE_ENV === 'production') {
 app.all('*', (req, res, next) => {
   next(new createError(404, `Cant find ${req.originalUrl} on this server!`))
 })
-
 
 app.use((error, req, res, next) => {
   // Установка кода состояния ответа\

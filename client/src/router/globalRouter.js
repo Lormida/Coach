@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import Coaches from '../pages/CoachesPage'
-import CoachDetails from '../components/coaches/CoachDetails'
-import Requests from '../pages/RequestsPage'
-import Authorization from '../pages/AuthPage'
-import SignUp from '../pages/SignUpPage'
-// import store from '../store/globalStore'
+
+const CoachDetails = () => import('../components/coaches/CoachDetails')
+const Requests = () => import('../pages/RequestsPage')
+const Authorization = () => import('../pages/AuthPage')
+const SignUp = () => import('../pages/SignUpPage')
 
 
 const routes = [
