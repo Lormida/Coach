@@ -1,10 +1,10 @@
-<template v-cloak>
+<template>
   <div>
     <the-header></the-header>
     <spinner v-if="getIsLoadingState"></spinner>
     <router-view v-slot="{ Component }">
       <transition name="page" mode="out-in">
-        <component :is="Component" />
+        <component v-cloak :is="Component" />
       </transition>
     </router-view>
 
@@ -45,7 +45,7 @@ export default {
 
 <style lang="scss">
 [v-cloak] {
-  display: none;
+  display: none!important;
 }
 
 .active {
