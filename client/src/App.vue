@@ -45,7 +45,7 @@ export default {
 
 <style lang="scss">
 [v-cloak] {
-  display: none!important;
+  display: none;
 }
 
 .active {
