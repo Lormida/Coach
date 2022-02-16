@@ -3,12 +3,13 @@
 </template>
 
 <script>
-import { defineAsyncComponent } from 'vue'
+
+import TheSignUpForm from '../components/auth/TheSignUpForm.vue'
 
 export default {
   components: {
-    TheSignUpForm: defineAsyncComponent(() => import('../components/auth/TheSignUpForm.vue'))
-  },
+    TheSignUpForm
+  }
 }
 </script>
 

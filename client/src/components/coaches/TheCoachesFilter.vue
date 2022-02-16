@@ -120,6 +120,16 @@ export default {
 <style lang="scss" scoped>
 .wrapper-card.filter {
   margin: 30px auto 50px auto;
+  @media (max-width: 1280px) {
+    width: 50%;
+  }
+  @media (max-width: 800px) {
+    width: 66%;
+  }
+  @media (max-width: 600px) {
+    width: 90%;
+    padding: 10px 20px;
+  }
 }
 .filter {
   align-items: center;
@@ -174,6 +184,9 @@ export default {
   padding-bottom: 1.5rem;
   label {
     margin-right: 1.5rem;
+      @media (max-width: 480px) {
+      font-size: 1.41rem;
+    }
   }
 }
 .label-info {

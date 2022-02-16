@@ -7,7 +7,6 @@ const Requests = () => import('../pages/RequestsPage')
 const Authorization = () => import('../pages/AuthPage')
 const SignUp = () => import('../pages/SignUpPage')
 
-
 const routes = [
   {
     alias: '/',

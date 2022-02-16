@@ -11,11 +11,12 @@
 </template>
 
 <script>
-import { defineAsyncComponent } from 'vue'
+
+import TheRequestsList from '../components/requests/TheRequestsList.vue'
 
 export default {
   components: {
-    TheRequestsList: defineAsyncComponent(() => import('../components/requests/TheRequestsList.vue')),
+    TheRequestsList,
   },
   computed: {
     getIsLoadingState() {

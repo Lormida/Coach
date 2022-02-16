@@ -57,6 +57,12 @@ export default {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+
+  @media (max-width: 1440px) {
+    flex-direction: column;
+    align-items: center;
+  }
+
   // .form-input__label
 
   &__label {
@@ -64,6 +70,14 @@ export default {
     font-weight: bold;
     text-align: left;
     width: 25%;
+    @media (max-width: 1440px) {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    @media (max-width: 768px) {
+      font-size: 1.25rem;
+    }
   }
 
   // .form-input__input
@@ -73,6 +87,13 @@ export default {
     font-size: 1.8rem;
     line-height: 1.5;
     width: 65%;
+    @media (max-width: 1440px) {
+      width: 82.5%;
+    }
+    @media (max-width: 768px) {
+      font-size: 1.25rem;
+      width: 100%;
+    }
   }
 }
 .errorValidate {

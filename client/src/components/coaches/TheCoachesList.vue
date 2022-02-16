@@ -1,5 +1,5 @@
 <template>
-  <base-wrapper v-if="this.getCoachesFilter?.length">
+  <base-wrapper class="coach-wrapper" v-if="this.getCoachesFilter?.length">
     <coach-item
       v-for="coach in getCoachesFilter"
       :key="coach.id"
@@ -58,6 +58,17 @@ export default {
 }
 </script>
 
-
-<style>
+<style lang="scss" scoped>
+.wrapper-card.coach-wrapper {
+  @media (max-width: 1280px) {
+    width: 50%;
+  }
+  @media (max-width: 800px) {
+    width: 66%;
+  }
+  @media (max-width: 600px) {
+    width: 90%;
+    padding: 10px 20px;
+  }
+}
 </style>

@@ -14,11 +14,11 @@
 </template>
 
 <script>
-import { defineAsyncComponent } from 'vue'
+import AccordionItem from './AccordionItem.vue'
 
 export default {
   components: {
-    AccordionItem: defineAsyncComponent(() => import('./AccordionItem.vue'))
+    AccordionItem
   },
   props: ['requests']
 }

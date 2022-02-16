@@ -1,14 +1,14 @@
-<template>
+<template v-cloak>
   <div>
     <the-header></the-header>
     <spinner v-if="getIsLoadingState"></spinner>
     <router-view v-slot="{ Component }">
       <transition name="page" mode="out-in">
-        <component v-cloak :is="Component" />
+        <component :is="Component" />
       </transition>
     </router-view>
 
-    <template v-if="getArrayObjTooltip">
+    <template v-if="getArrayObjTooltip.length">
       <tooltip-wrapper>
         <tooltip-message
           v-for="objTooltip in getArrayObjTooltip"
@@ -45,7 +45,7 @@ export default {
 
 <style lang="scss">
 [v-cloak] {
-  display: none;
+  display: none !important;
 }
 
 .active {

@@ -79,21 +79,30 @@ export default {
 
 <style lang="scss" scoped>
 .form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  min-height: 160px;
+  min-width: 230px;
+  width: 20%;
   padding: 20px;
   margin: 0 auto;
   margin-top: 50px;
-  width: 20%;
   border-radius: 20px;
   box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.8);
   border: 1px solid rgba(22, 22, 22, 0.1);
 }
 
 .form-input__btn-login {
+  align-self: center;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px 15px;
   font-size: 1.8rem;
   margin: 20px auto 10px auto;
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
 }
 </style>

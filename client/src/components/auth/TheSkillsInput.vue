@@ -48,21 +48,41 @@ export default {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+
+  @media (max-width: 1440px) {
+    flex-direction: column;
+  }
   // .form-input__label
 
   &__label {
     padding-right: 10px;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: bold;
     text-align: left;
     width: 30%;
+    @media (max-width: 1440px) {
+      margin-bottom: 10px;
+      width: 100%;
+      text-align: center;
+    }
+    @media (max-width: 768px) {
+      font-size: 1.25rem;
+    }
   }
   &__select {
     font-size: 1.8rem;
     line-height: 1.5;
-    width: 70%;
-    // min-width: 200px;
-    // max-width: 200px;
+    width: 66.6%;
+    @media (max-width: 1440px) {
+      width: 82.5%;
+    }
+    @media (max-width: 768px) {
+      font-size: 1.25rem;
+      width: 100%;
+    }
+    @media (max-width: 480px) {
+      font-size: 1rem;
+    }
   }
 }
 </style>

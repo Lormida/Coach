@@ -67,8 +67,12 @@ $clouds: #ecf0f1;
   margin: 0 auto;
   background-color: $midnight;
   padding: 20px 0px;
+  text-align: left;
   border-left: 4px solid $midnight;
   border-right: 4px solid $midnight;
+
+  @media (max-width: 768px) {
+  }
 
   &:hover {
     background-color: darken($midnight, 20%);
@@ -78,10 +82,18 @@ $clouds: #ecf0f1;
   &__coach-email {
     display: flex;
     align-items: center;
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin-left: 20px;
     color: #fff;
     font-weight: 700;
+
+    @media (max-width: 600px) {
+      font-size: 1.1rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 0.9rem;
+    }
   }
 
   &__content {
@@ -118,6 +130,11 @@ $clouds: #ecf0f1;
   mask-image: url("../../assets/close.svg");
   mask-repeat: no-repeat;
   background-color: #ca3f3f;
+
+  @media (max-width: 480px) {
+    width: 20px;
+    height: 20px;
+  }
 }
 // .accordion__arrow
 
@@ -125,6 +142,10 @@ $clouds: #ecf0f1;
   margin-right: 20px;
   width: 30px;
   height: 30px;
+  @media (max-width: 480px) {
+    width: 20px;
+    height: 20px;
+  }
 }
 .arrow--down {
   mask-image: url("../../assets/down-chevron.svg");
@@ -137,7 +158,8 @@ $clouds: #ecf0f1;
   background-color: #fff;
 }
 .button-angle-wrapper {
-  width: 100px;
+  // width: 100%;
+  margin-right: 5%;
   height: 100%;
   display: flex;
 }

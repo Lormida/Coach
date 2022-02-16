@@ -17,26 +17,29 @@
     </transition>
 
     <section class="content" v-if="Object.keys(coach)">
-      <base-wrapper class="header-initials">
-        <div class="coach-item">
-          <span class="coach-item__title"
-            >{{ coach.firstName }} {{ coach.lastName }}</span
-          >
-          <span class="coach-item__rate">${{ coach.hourlyRate }}/hour</span>
-        </div>
-      </base-wrapper>
-
-      <base-wrapper class="main-contact">
-        <span class="coach-item__title">Interested? Reach out now!</span>
-        <base-button
-          @click="toggleModalContact(true)"
-          class="main-contact__button"
-          className="button--contact"
-          >Contact</base-button
-        >
-      </base-wrapper>
-
       <base-wrapper class="footer-skills">
+        <span class="about-title title text-about">About coach</span>
+        <div class="coach-item">
+          <div class="coach-item__subwrapper">
+            <pre class="coach-item__label">Name : </pre>
+            <span class="text-about"
+              >{{ coach.firstName }} {{ coach.lastName }}</span
+            >
+          </div>
+          <div class="coach-item__subwrapper">
+            <pre class="coach-item__label">Rate : </pre>
+            <span class="coach-item__rate text-about"
+              >${{ coach.hourlyRate }}/hour</span
+            >
+          </div>
+          <div class="coach-item__subwrapper">
+            <pre class="coach-item__label">Description : </pre>
+            <p class="text-about">
+              {{ coach.description }}
+            </p>
+          </div>
+        </div>
+
         <section class="skills">
           <base-badge
             class="skills__skill"
@@ -45,21 +48,29 @@
             :className="skill"
           ></base-badge>
         </section>
-        <p class="description">
-          {{ coach.description }}
-        </p>
+      </base-wrapper>
+
+      <base-wrapper class="main-contact">
+        <span class="coach-item__title title">Interested? Reach out now!</span>
+        <base-button
+          @click="toggleModalContact(true)"
+          class="main-contact__button"
+          className="button--contact"
+          >Contact</base-button
+        >
       </base-wrapper>
     </section>
   </div>
 </template>
 
 <script>
-import { defineAsyncComponent } from 'vue'
+import TheModalContact from './TheModalContact.vue'
+import TheDialogWindowSuccess from '../requests/TheDialogWindowSuccess.vue'
 
 export default {
   components: {
-    TheModalContact: defineAsyncComponent(() => import('./TheModalContact.vue')),
-    TheDialogWindowSuccess: defineAsyncComponent(() => import('../requests/TheDialogWindowSuccess.vue'))
+    TheModalContact,
+    TheDialogWindowSuccess
   },
   props: ['id'],
   data() {
@@ -104,55 +115,92 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.coach-item__label {
+  font-weight: bold;
+  flex-basis: 50%;
+  font-size: 1.5rem;
+  text-align: left;
+  margin: 10px 0;
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
+  }
+}
+.text-about {
+  font-size: 1.2rem;
+  text-align: left;
+  flex-basis: 50%;
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+  }
+}
+.title {
+  font-size: 2.2rem;
+  font-weight: bold;
+  letter-spacing: -1px;
+  display: inline-block;
+  margin-bottom: 10px;
+  @media (max-width: 480px) {
+    font-size: 1.7rem;
+  }
+}
+.about-title {
+  align-self: center;
+}
 .content {
+  margin-top: 5%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 88vh;
-}
-.header-initials {
-  margin-top: 0;
 }
 .coach-item {
   display: flex;
+  // justify-content: start;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
   border-radius: 10px;
-  height: 80px;
   width: 100%;
   padding: 10px 0;
+  flex-wrap: wrap;
+  align-items: center;
+}
 
-  // .coach-item__item__title
-  &__title {
-    align-self: flex-start;
-    font-size: 2.2rem;
-    font-weight: bold;
-    letter-spacing: -1px;
-    display: inline-block;
-  }
-  // .coach-item__rate
-  &__rate {
-    align-self: flex-start;
-    font-size: 1.5rem;
-    font-weight: 400;
-  }
+.coach-item__subwrapper {
+  width: 100%;
+  align-items: center;
+  display: flex;
 }
 .main-contact {
   display: flex;
   flex-direction: column;
   height: 100px;
   justify-content: space-around;
+  @media (max-width: 1024px) {
+    width: 55%;
+  }
+  @media (max-width: 768px) {
+    width: 65%;
+  }
+  @media (max-width: 600px) {
+    width: 75%;
+  }
+  @media (max-width: 480px) {
+    width: 90%;
+  }
 
   // .main-contact__button
   &__button {
-    align-self: flex-start;
-    margin-left: 0 !important;
+    align-self: center;
   }
 }
 .skills {
   display: flex;
+  width: 100%;
   align-self: flex-start;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: center;
+  }
   &__skill:nth-of-type(1) {
     margin-left: 0;
   }
@@ -160,14 +208,21 @@ export default {
 .footer-skills {
   display: flex;
   flex-direction: column;
+  @media (max-width: 1024px) {
+    width: 55%;
+  }
+  @media (max-width: 768px) {
+    width: 65%;
+  }
+  @media (max-width: 600px) {
+    width: 75%;
+  }
+  @media (max-width: 480px) {
+    width: 90%;
+  }
 }
-.description {
-  margin: 15px 0;
-  font-size: 1.6rem;
-  text-align: left;
-  align-self: flex-start;
-}
-////
+
+///////////////////////////////////////////////////////////
 .modal-contact-enter-from,
 .modal-contact-leave-to {
   opacity: 0;

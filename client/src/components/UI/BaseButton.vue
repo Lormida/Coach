@@ -43,24 +43,24 @@ export default {
   }
 }
 .button--details {
-  background-color: rgb(95, 13, 121);
+  background-color: rgb(17, 184, 103);
   color: #fff;
-  border: 1px solid rgb(95, 13, 121);
+  border: 3px solid rgb(17, 184, 103);
   &:hover {
-    color: rgb(95, 13, 121);
+    color: rgb(17, 184, 103);
     background-color: #fff;
-    border: 1px solid rgb(95, 13, 121);
+    border: 3px solid rgb(17, 184, 103);
     cursor: pointer;
   }
 }
 .button--login {
   background-color: #3f7849;
   color: #fff;
-  border: 1px solid #3f7849;
+  border: 3px solid #3f7849;
   &:hover {
     color: #3f7849;
     background-color: #fff;
-    border: 1px solid #3f7849;
+    border: 3px solid #3f7849;
     cursor: pointer;
   }
 }
@@ -68,12 +68,15 @@ export default {
 .button--create {
   background-color: #8f06df;
   color: #fff;
-  border: 1px solid #8f06df;
+  border: 3px solid #8f06df;
   &:hover {
     color: #8f06df;
     background-color: #fff;
-    border: 1px solid #8f06df;
+    border: 3px solid #8f06df;
     cursor: pointer;
+  }
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
   }
 }
 </style>

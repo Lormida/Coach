@@ -1,5 +1,5 @@
 <template>
-  <base-wrapper>
+  <base-wrapper class="wrapper-signup">
     <form @submit.prevent="createAccount" class="form-signup">
       <base-input
         class="form-signup__item form-signup__email"
@@ -64,12 +64,12 @@
 </template>
 
 <script>
-import { defineAsyncComponent } from 'vue'
-
+import TheSkillsInput from './TheSkillsInput.vue'
+import TheGenderChoice from './TheGenderChoice.vue'
 export default {
   components: {
-    TheSkillsInput: defineAsyncComponent(() => import('./TheSkillsInput.vue')),
-    TheGenderChoice: defineAsyncComponent(() => import('./TheGenderChoice.vue')),
+    TheSkillsInput,
+    TheGenderChoice
   },
   data() {
     return {
@@ -111,7 +111,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.wrapper-signup {
+  @media (max-width: 1440px) {
+    width: 60%;
+  }
+  @media (max-width: 480px) {
+    width: 90%;
+  }
+}
 .form-signup {
   width: 70%;
+  height: 85%;
+  @media (max-width: 1440px) {
+    flex-direction: column;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 }
 </style>

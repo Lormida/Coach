@@ -20,7 +20,8 @@
         <base-button
           class="buttons-container__view-details"
           className="button--details"
-        >Details</base-button>
+          >Details</base-button
+        >
       </router-link>
     </section>
   </div>
@@ -48,7 +49,7 @@ export default {
   justify-content: space-between;
   border: 2px solid #000;
   border-radius: 10px;
-  height: 250px;
+  // height: 250px;
   width: 100%;
   margin: 10px 0;
   padding: 20px 20px;
@@ -58,23 +59,39 @@ export default {
     align-self: flex-start;
     font-size: 2.2rem;
     font-weight: 800;
+    margin: 10px 0;
+    @media (max-width: 600px) {
+      font-size: 1.6rem;
+    }
   }
   // .coach-item__rate
   &__rate {
     align-self: flex-start;
     font-size: 1.5rem;
     font-weight: 600;
+    margin: 10px 0;
+    @media (max-width: 600px) {
+      font-size: 1.4rem;
+    }
   }
   // .coach-item__gender
   &__gender {
     align-self: flex-start;
     font-size: 1.5rem;
     font-weight: 400;
+    margin: 10px 0;
   }
 }
 .skills {
   display: flex;
+  width: 100%;
   align-self: flex-start;
+  margin: 20px 0;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    margin: 20px 0;
+    align-items: center;
+  }
 }
 .buttons-container {
   align-self: flex-end;

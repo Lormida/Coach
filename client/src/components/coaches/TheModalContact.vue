@@ -3,7 +3,7 @@
     <section class="modal">
       <section class="header">
         <slot name="header">
-          <p class="header__title">Interested? Reach out now!</p>
+
         </slot>
       </section>
 
@@ -105,15 +105,23 @@ export default {
   flex-direction: column;
   justify-content: space-evenly;
   background-color: #fff;
-  border-radius: 2%;
-  height: 50vh;
+  border-radius: 2px;
   padding: 20px 10px;
-  width: 30vw;
+  width: 30%;
   position: fixed;
-  top: 20%;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   box-shadow: 0px 0px 97px 4px rgba(0, 0, 0, 0.9);
+  @media (max-width: 1440px) {
+    width: 60%;
+  }
+  @media (max-width: 600px) {
+    width: 75%;
+  }
+  @media (max-width: 480px) {
+    width: 85%;
+  }
 }
 
 .header,
@@ -130,10 +138,6 @@ export default {
   flex-grow: 2;
 }
 
-.header__title {
-  font-weight: 800;
-  font-size: 2.5rem;
-}
 .contact {
   display: flex;
   height: 100%;
@@ -141,6 +145,9 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+  @media (max-width: 480px) {
+    width: 100%;
+  }
 
   // contact__label-message
   &__label-email {
@@ -166,6 +173,7 @@ export default {
     font-size: 1.6rem;
     resize: none;
     height: 110px;
+    margin-bottom: 5%;
   }
 }
 

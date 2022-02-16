@@ -130,3 +130,6 @@ html {
 	text-align: center;
 	user-select: none;
 }
+* {
+	box-sizing: border-box;
+}

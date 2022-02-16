@@ -41,7 +41,12 @@ export default {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 60px;
+  height: auto;
+
+  @media (max-width: 1440px) {
+    flex-direction: column;
+  }
+
   // .form-input__label
 
   &__label {
@@ -50,14 +55,25 @@ export default {
     font-weight: bold;
     text-align: left;
     flex-basis: 30%;
+    @media (max-width: 1440px) {
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    @media (max-width: 768px) {
+      font-size: 1.25rem;
+    }
   }
 }
 
 .gender {
   display: flex;
   flex-basis: 65%;
+  width: 90%;
   padding: 15px 5px 30px 0;
   border: 1px solid #000;
+  @media (max-width:1440px) {
+    width: 82.5%;
+  }
 
   // .container-gender__item
 
@@ -71,7 +87,10 @@ export default {
   &__label {
     position: relative;
     font-size: 1.6rem;
-    width: 25%;
+    width: 50%;
+    @media (max-width: 768px) {
+      font-size: 1.25rem;
+    }
   }
 
   &__input {
@@ -79,6 +98,12 @@ export default {
     font-size: 1.8rem;
     line-height: 1.5;
     width: 65%;
+  /*   @media (max-width: 1440px) {
+      width: 82.5%;
+    } */
+    @media (max-width: 768px) {
+      width: 100%;
+    }
   }
 }
 .gender__label::before {

@@ -5,11 +5,11 @@
 </template>
 
 <script>
-import {defineAsyncComponent} from 'vue'
+import TheFormAuth from '../components/auth/TheFormAuth.vue'
 
 export default {
   components: {
-    TheFormAuth: defineAsyncComponent(() => import('../components/auth/TheFormAuth.vue'))
+    TheFormAuth
   },
 
 }
